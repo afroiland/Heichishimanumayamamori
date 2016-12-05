@@ -27,3 +27,31 @@ app.config(['$routeProvider', function($routeProvider) {
     });
 
 }]);
+
+app.controller('HomeController', function() {
+  console.log('home controller running');
+  var self = this;
+  self.message = "Home controller is the best!";
+
+});
+
+app.controller('ProfileController', function() {
+  console.log('profile controller running');
+  var self = this;
+  self.message = "Profile controller is the best!";
+
+});
+
+app.controller('LeaderboardController', function() {
+  console.log('leaderboard controller running');
+  var self = this;
+  self.message = "Leaderboard controller is the best!";
+
+});
+
+app.controller('AboutController', function() {
+  console.log('about controller running');
+  var self = this;
+  self.message = "About controller is the best!";
+
+});
