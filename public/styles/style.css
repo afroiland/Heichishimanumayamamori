@@ -1,0 +1,7 @@
+.tableElement {
+  border: 1px solid black;
+}
+
+.roster {
+  display:inline-flex;
+}
