@@ -1,4 +1,4 @@
-var app = angular.module('myApp', ['ngRoute']);
+var app = angular.module('myApp', ['ngRoute', 'firebase']);
 
 app.config(['$routeProvider', function($routeProvider) {
   $routeProvider
@@ -28,18 +28,18 @@ app.config(['$routeProvider', function($routeProvider) {
 
 }]);
 
-app.controller('HomeController', function() {
+app.controller('HomeController', function($firebaseAuth, $http) {
   console.log('home controller running');
+  var auth = $firebaseAuth();
   var self = this;
   self.message = "Home controller is the best!";
   self.logIn = function(){
-    console.log("login click");
-  // auth.$signInWithPopup("google").then(function(firebaseUser) {
-  //   console.log("Firebase Authenticated as: ", firebaseUser.user.displayName);
-  // }).catch(function(error) {
-  //   console.log("Authentication failed: ", error);
-  // });
-};
+    auth.$signInWithPopup("google").then(function(firebaseUser) {
+      console.log("Firebase Authenticated as: ", firebaseUser.user.displayName);
+    }).catch(function(error) {
+      console.log("Authentication failed: ", error);
+    });
+  };
 
 });
 
@@ -74,3 +74,7 @@ app.controller('AboutController', function() {
   self.message = "About controller is the best!";
 
 });
+
+
+//added ['firebase'] as param on line 1
+//added $firebaseAuth, $http as params for function line 31
