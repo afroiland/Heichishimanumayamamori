@@ -1,6 +1,9 @@
+// var admin = require("firebase-admin");
 var express = require('express');
 var app = express();
 var path = require('path');
+var bodyParser = require('body-parser');
+var decoder = require('./modules/decoder');
 var roster = require('./routes/roster');
 var leaderboard = require('./routes/leaderboard');
 var about = require('./routes/about');
@@ -15,6 +18,7 @@ app.use('/leaderboard', leaderboard);
 app.use('/about', about);
 
 app.use(express.static(path.resolve('./public')));
+app.use(bodyParser.json());
 
 app.get('/home', function(req, res) {
     res.send("hello from the server");
