@@ -61,9 +61,8 @@ app.controller('LeaderboardController', ["$http", function($http) {
   function getUsers() {
     $http.get('/leaderboard')
       .then(function(response) {
-        console.log('response.data: ', response.data);
+        // console.log('response.data: ', response.data);
         self.users = response.data;
-        console.log();
       });
   }
 
