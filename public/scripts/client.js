@@ -63,6 +63,7 @@ app.controller('LeaderboardController', ["$http", function($http) {
       .then(function(response) {
         console.log('response.data: ', response.data);
         self.users = response.data;
+        console.log();
       });
   }
 

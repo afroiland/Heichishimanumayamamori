@@ -10,8 +10,8 @@
   </thead>
   <tbody>
     <tr ng-repeat="user in leaderboard.users">
-      <td ng-model="user.firstname "+"user.last_name" class="tableElement" name="username"></td>
-      <td ng-model="user.user_points" class="tableElement" name="user_points"></td>
+      <td class="tableElement" name="username">{{user.first_name}} {{user.last_name}}</td>
+      <td class="tableElement" name="user_points">{{user.user_points}}</td>
     </tr>
   </tbody>
 </table>
