@@ -4,6 +4,7 @@ var app = express();
 var path = require('path');
 var bodyParser = require('body-parser');
 var decoder = require('./modules/decoder');
+var pgConnection = require('./modules/pg-connection');
 var roster = require('./routes/roster');
 var leaderboard = require('./routes/leaderboard');
 var about = require('./routes/about');
@@ -12,9 +13,7 @@ var port = 3000;
 app.set("port", (process.env.PORT || port));
 
 app.use('/roster', roster);
-
 app.use('/leaderboard', leaderboard);
-
 app.use('/about', about);
 
 app.use(express.static(path.resolve('./public')));
@@ -27,6 +26,8 @@ app.get('/home', function(req, res) {
 app.get('/', function(req, res) {
   res.sendFile(path.join(__dirname, '../public/views/index.html'));
 });
+
+pgConnection.connect();
 
 app.listen(app.get("port"), function(){
     console.log("Server up and running on Port", port);
