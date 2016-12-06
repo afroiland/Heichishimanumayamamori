@@ -1,14 +1,14 @@
 var express = require('express');
 var app = express();
 var path = require('path');
-var profile = require('./routes/profile');
+var roster = require('./routes/roster');
 var leaderboard = require('./routes/leaderboard');
 var about = require('./routes/about');
 var port = 3000;
 
 app.set("port", (process.env.PORT || port));
 
-app.use('/profile', profile);
+app.use('/roster', roster);
 
 app.use('/leaderboard', leaderboard);
 

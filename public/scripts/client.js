@@ -7,10 +7,10 @@ app.config(['$routeProvider', function($routeProvider) {
       controller: 'HomeController',
       controllerAs: 'home'
     })
-    .when('/profile' ,{
-      templateUrl: '/views/templates/profile.html',
-      controller: 'ProfileController',
-      controllerAs: 'profile'
+    .when('/roster' ,{
+      templateUrl: '/views/templates/roster.html',
+      controller: 'RosterController',
+      controllerAs: 'roster'
     })
     .when('/leaderboard' ,{
       templateUrl: '/views/templates/leaderboard.html',
@@ -35,10 +35,10 @@ app.controller('HomeController', function() {
 
 });
 
-app.controller('ProfileController', function() {
-  console.log('profile controller running');
+app.controller('RosterController', function() {
+  console.log('roster controller running');
   var self = this;
-  self.message = "Profile controller is the best!";
+  self.message = "Roster controller is the best!";
 
 });
 
