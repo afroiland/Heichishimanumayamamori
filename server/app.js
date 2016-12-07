@@ -13,11 +13,6 @@ var port = 3000;
 
 app.set("port", (process.env.PORT || port));
 
-app.use('/roster', roster);
-app.use('/leaderboard', leaderboard);
-app.use('/about', about);
-app.use('/privateData', privateData);
-
 app.use(express.static(path.resolve('./public')));
 app.use(bodyParser.json());
 
@@ -25,7 +20,14 @@ app.get('/', function(req, res) {
   res.sendFile(path.join(__dirname, '../public/views/index.html'));
 });
 
+
+
 app.use(decoder.token);
+
+app.use('/roster', roster);
+app.use('/leaderboard', leaderboard);
+app.use('/about', about);
+app.use('/privateData', privateData);
 
 app.get('/home', function(req, res) {
     res.send("hello from the server");

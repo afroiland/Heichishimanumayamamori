@@ -19,7 +19,7 @@ router.get('/', function(req, res){
             res.sendStatus(403);
           } else {
             var clearanceLevel = clearanceLevelQueryResult.rows[0].clearance_level;
-            log('clearanceLevel: ', clearanceLevel);
+            console.log('clearanceLevel: ', clearanceLevel);
             //a lot can be added here
           }
           done();
