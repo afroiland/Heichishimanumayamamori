@@ -66,10 +66,32 @@ app.controller('HomeController', function($firebaseAuth, $http) {
   });
 });
 
-app.controller('RosterController', function() {
+app.controller('RosterController', function($http) {
   console.log('roster controller running');
   var self = this;
   self.message = "Roster controller is the best!";
+  self.newPlayer = {};
+  self.players = [];
+
+  getPlayers();
+
+  function getPlayers() {
+    $http.get('/roster')
+      .then(function(response) {
+        console.log('response.data: ', response.data);
+        self.players = response.data;
+      });
+  }
+
+
+  self.addPlayer = function() {
+    console.log('new player: ', self.newPlayer);
+    $http.post('/roster', self.newPlayer)
+      .then(function(response) {
+        console.log('POST finished. getPlayers(); again.');
+        getPlayers();
+      });
+  }
 
 });
 

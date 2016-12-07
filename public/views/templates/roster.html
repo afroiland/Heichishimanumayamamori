@@ -1,14 +1,32 @@
+
+<form id="newPlayerEntry">
+  <div class="form-group">
+    <label for="first_name">First Name(s)</label>
+    <input type="text" ng-model="roster.newPlayer.first_name" name="first_name" class="form-control" />
+  </div>
+  <div class="form-group">
+    <label for="last_name">Last Name</label>
+    <input type="text" ng-model="roster.newPlayer.last_name" name="last_name" class="form-control" />
+  </div>
+  <button class="btn btn-default" ng-click="roster.addPlayer()">Add Player to Roster</button>
+</form>
+
 <h2>User's Roster</h2>
 
 <div>
-  <form id="newPlayerEntry">
-    <input type="text"></input>
-    <button>Add Player to Roster</button>
-  </form>
-</div>
-
-<div class="roster">
-  <p name="player">Pro Player's Name</p>
-  <button>Delete</button>
+  <table id="roster" class="tableElement">
+  <thead>
+    <tr>
+      <th class="tableElement">Player</th>
+      <th class="tableElement">Points</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="player in roster.players">
+      <td class="tableElement" name="player_name">{{player.first_name}} {{player.last_name}}</td>
+      <td class="tableElement" name="player_points">{{player.tourney_points}}</td>
+    </tr>
+  </tbody>
+</table>
 
 </div>

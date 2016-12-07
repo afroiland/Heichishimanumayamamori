@@ -7,6 +7,8 @@ admin.initializeApp({
 
 var tokenDecoder = function(req, res, next){
   // console.log('req.headers.id_token: ', req.headers.id_token);
+
+  //inserted this if stmt here to avoid multiple errors logging in terminal
   if (req.headers.id_token == undefined){
     next();
   } else {
