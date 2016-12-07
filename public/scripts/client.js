@@ -28,7 +28,7 @@ app.config(['$routeProvider', function($routeProvider) {
 
 }]);
 
-app.controller('HomeController', function($firebaseAuth, $http) {
+app.controller('HomeController', ['$http', 'DataFactory', function($firebaseAuth, $http) {
   console.log('home controller running');
   var auth = $firebaseAuth();
   var self = this;
@@ -64,9 +64,9 @@ app.controller('HomeController', function($firebaseAuth, $http) {
       self.secretData = [];
     }
   });
-});
+}]);
 
-app.controller('RosterController', function($http) {
+app.controller('RosterController', ['$http', 'DataFactory', function($http) {
   console.log('roster controller running');
   var self = this;
   self.message = "Roster controller is the best!";
@@ -93,9 +93,9 @@ app.controller('RosterController', function($http) {
       });
   }
 
-});
+}]);
 
-app.controller('LeaderboardController', ["$http", function($http) {
+app.controller('LeaderboardController', ["$http", 'DataFactory', function($http) {
   console.log('leaderboard controller running');
   var self = this;
   self.message = "Leaderboard controller is the best!";
@@ -113,12 +113,12 @@ app.controller('LeaderboardController', ["$http", function($http) {
 
 }]);
 
-app.controller('AboutController', function() {
+app.controller('AboutController', ['$http', 'DataFactory', function() {
   console.log('about controller running');
   var self = this;
   self.message = "About controller is the best!";
 
-});
+}]);
 
 
 //added ['firebase'] as param on line 1
