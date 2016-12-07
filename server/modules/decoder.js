@@ -6,6 +6,7 @@ admin.initializeApp({
 });
 
 var tokenDecoder = function(req, res, next){
+  console.log('req.headers.id_token: ', req.headers.id_token);
   admin.auth().verifyIdToken(req.headers.id_token).then(function(decodedToken) {
     // Adding the decodedToken to the request so that downstream processes can use it
     req.decodedToken = decodedToken;
