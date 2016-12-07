@@ -1,4 +1,4 @@
-app.factory('DataFactory', ["$http", "firebase", function($http){
+app.factory('DataFactory', ["$http", 'firebase', function($http, $firebaseAuth){
   console.log("Factory running");
 
 

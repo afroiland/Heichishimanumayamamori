@@ -1,4 +1,4 @@
-var app = angular.module('myApp', ['ngRoute', 'firebase']);
+var app = angular.module('myApp', ['ngRoute']);
 
 app.config(['$routeProvider', function($routeProvider) {
   $routeProvider
@@ -17,10 +17,10 @@ app.config(['$routeProvider', function($routeProvider) {
       controller: 'LeaderboardController',
       controllerAs: 'leaderboard'
     })
-    .when('/about' ,{
-      templateUrl: '/views/templates/about.html',
-      controller: 'AboutController',
-      controllerAs: 'about'
+    .when('/admin' ,{
+      templateUrl: '/views/templates/admin.html',
+      controller: 'AdminController',
+      controllerAs: 'admin'
     })
     .otherwise({
       redirectTo: 'home'
@@ -28,7 +28,7 @@ app.config(['$routeProvider', function($routeProvider) {
 
 }]);
 
-app.controller('HomeController', ['$http', 'DataFactory', function($firebaseAuth, $http) {
+app.controller('HomeController', ['firebase', '$http', 'DataFactory', function($firebaseAuth, $http, DataFactory) {
   console.log('home controller running');
   var auth = $firebaseAuth();
   var self = this;
@@ -66,7 +66,7 @@ app.controller('HomeController', ['$http', 'DataFactory', function($firebaseAuth
   });
 }]);
 
-app.controller('RosterController', ['$http', 'DataFactory', function($http) {
+app.controller('RosterController', ['$http', 'DataFactory', function($http, DataFactory) {
   console.log('roster controller running');
   var self = this;
   self.message = "Roster controller is the best!";
@@ -95,7 +95,7 @@ app.controller('RosterController', ['$http', 'DataFactory', function($http) {
 
 }]);
 
-app.controller('LeaderboardController', ["$http", 'DataFactory', function($http) {
+app.controller('LeaderboardController', ["$http", 'DataFactory', function($http, DataFactory) {
   console.log('leaderboard controller running');
   var self = this;
   self.message = "Leaderboard controller is the best!";
@@ -113,10 +113,10 @@ app.controller('LeaderboardController', ["$http", 'DataFactory', function($http)
 
 }]);
 
-app.controller('AboutController', ['$http', 'DataFactory', function() {
-  console.log('about controller running');
+app.controller('AdminController', ['$http', 'DataFactory', function($http, DataFactory) {
+  console.log('admin controller running');
   var self = this;
-  self.message = "About controller is the best!";
+  self.message = "Admin controller is the best!";
 
 }]);
 

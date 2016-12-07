@@ -8,7 +8,7 @@ var privateData = require('./routes/private-data');
 var pgConnection = require('./modules/pg-connection');
 var roster = require('./routes/roster');
 var leaderboard = require('./routes/leaderboard');
-var about = require('./routes/about');
+var admin = require('./routes/admin');
 var port = 3000;
 
 app.set("port", (process.env.PORT || port));
@@ -24,7 +24,7 @@ app.use(decoder.token);
 
 app.use('/roster', roster);
 app.use('/leaderboard', leaderboard);
-app.use('/about', about);
+app.use('/admin', admin);
 app.use('/privateData', privateData);
 
 app.get('/home', function(req, res) {
