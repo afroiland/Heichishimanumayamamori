@@ -20,7 +20,11 @@ router.get('/', function(req, res){
           } else {
             var clearanceLevel = clearanceLevelQueryResult.rows[0].clearance_level;
             console.log('clearanceLevel: ', clearanceLevel);
-            //a lot can be added here
+
+
+            //a lot can be added here?
+
+
           }
           done();
         });
