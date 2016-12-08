@@ -23,7 +23,7 @@ router.get('/', function(req, res){
 
 
             //in the example, this was where the secret message distribution happened
-
+            //res.send(result.rows);     maybe?
 
           }
           done();
