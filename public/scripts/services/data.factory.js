@@ -1,5 +1,5 @@
 app.factory('DataFactory', [function() {
-  console.log("Factory running");
+  console.log("factory running");
 
 
   var publicApi = {};

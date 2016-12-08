@@ -1,10 +1,10 @@
-app.controller('HomeController', ['firebase', '$http', 'DataFactory', function($firebaseAuth, $http, DataFactory) {
+app.controller('HomeController', ['$http', 'firebase', 'DataFactory', function($http, $firebaseAuth, DataFactory) {
   console.log('home controller running');
   var auth = $firebaseAuth();
   var self = this;
 
-  self.currentUser = {};
-  self.newUser = {};
+  // self.currentUser = {};
+  // self.newUser = {};
 
   self.logIn = function(){
     auth.$signInWithPopup("google").then(function(firebaseUser) {
@@ -15,7 +15,7 @@ app.controller('HomeController', ['firebase', '$http', 'DataFactory', function($
   };
 
   auth.$onAuthStateChanged(function(firebaseUser){
-    self.currentUser = firebaseUser;
+    // self.currentUser = firebaseUser;
     if(firebaseUser) {
       firebaseUser.getToken().then(function(idToken){
         $http({
@@ -33,4 +33,11 @@ app.controller('HomeController', ['firebase', '$http', 'DataFactory', function($
       self.secretData = [];
     }
   });
+
+  self.logOut = function() {
+    auth.$signOut().then(function(){
+      console.log('logged out');
+    });
+  };
+
 }]);
