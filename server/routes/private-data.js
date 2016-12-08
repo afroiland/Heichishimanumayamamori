@@ -5,7 +5,7 @@ var connectionString = require('../modules/database-config');
 
 router.get('/', function(req, res){
   pg.connect(connectionString, function(err, client, done){
-  // console.log('req.decodedToken: ', req.decodedToken);
+  console.log('req.decodedToken: ', req.decodedToken);
     var userEmail = req.decodedToken.email;
     client.query('SELECT clearance_level FROM users WHERE email=$1', [userEmail], function(err, clearanceLevelQueryResult){
       done();

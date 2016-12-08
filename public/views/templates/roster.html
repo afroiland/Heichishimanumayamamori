@@ -19,12 +19,14 @@
     <tr>
       <th class="tableElement">Player</th>
       <th class="tableElement">Points</th>
+      <th class="tableElement"></th>
     </tr>
   </thead>
   <tbody>
     <tr ng-repeat="player in roster.players">
       <td class="tableElement" name="player_name">{{player.first_name}} {{player.last_name}}</td>
       <td class="tableElement" name="player_points">{{player.tourney_points}}</td>
+      <td><button ng-click="roster.deletePlayer(player)">Delete Player</button></td>
     </tr>
   </tbody>
 </table>

@@ -17,7 +17,7 @@ router.get('/', function(req, res) {
         res.sendStatus(500);
       }
       res.send(result.rows);
-      console.log('result.rows: ', result.rows);
+      // console.log('result.rows: ', result.rows);
     });
   });
 });
@@ -47,6 +47,27 @@ router.post('/', function(req, res) {
   })
 })
 
+router.delete('/:id', function(req, res) {
+  playerID = req.params.id;
+  console.log('player id to delete: ', playerID);
+  pg.connect(connectionString, function(err, client, done) {
+    if(err) {
+      console.log('connection error: ', err);
+      res.sendStatus(500);
+    }
+    client.query(
+      'DELETE FROM players WHERE id = $1',
+      [playerID],
+      function(err, result) {
+        done();
+        if(err) {
+          res.sendStatus(500);
+        } else {
+          res.sendStatus(200);
+        }
+      });
+    });
+});
 
 
 module.exports = router;
