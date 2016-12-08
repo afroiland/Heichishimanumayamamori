@@ -1,4 +1,5 @@
-var app = angular.module('myApp', ['ngRoute', 'firebase']);
+var app = angular.module('myApp', ['ngRoute']);
+console.log('angular running');
 
 app.config(['$routeProvider', function($routeProvider) {
   $routeProvider

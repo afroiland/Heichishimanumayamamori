@@ -2,9 +2,7 @@ app.factory('DataFactory', [function() {
   console.log("Factory running");
 
 
-  var publicApi = {
-    console.log('publicApi');
-  };
+  var publicApi = {};
   return publicApi;
 
 
