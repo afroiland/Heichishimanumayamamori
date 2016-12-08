@@ -13,9 +13,9 @@ app.factory('DataFactory', ['$firebaseAuth', '$http', function($firebaseAuth, $h
     });
   };
 
-  function stateChanged() {
-    return function(firebaseUser){
-    // self.currentUser = firebaseUser;
+  auth.$onAuthStateChanged(function(firebaseUser){
+      console.log('firebaseUser: ', firebaseUser);
+      // self.currentUser = firebaseUser;
       if(firebaseUser) {
         firebaseUser.getToken().then(function(idToken) {
           $http({
@@ -34,8 +34,7 @@ app.factory('DataFactory', ['$firebaseAuth', '$http', function($firebaseAuth, $h
         console.log('Not logged in or authorized');
         self.secretData = [];
       }
-    }
-  };
+  });
 
   function logOut() {
     return auth.$signOut().then(function() {

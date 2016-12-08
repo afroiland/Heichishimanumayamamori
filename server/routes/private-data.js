@@ -22,7 +22,7 @@ router.get('/', function(req, res){
             console.log('clearanceLevel: ', clearanceLevel);
 
 
-            //a lot can be added here?
+            //in the example, this was where the secret message distribution happened
 
 
           }

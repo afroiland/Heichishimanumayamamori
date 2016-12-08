@@ -4,13 +4,13 @@ var pg = require('pg');
 var connectionString = 'postgres://localhost:5432/sigma';
 
 router.get('/', function(req, res) {
-  console.log('message on REC: ', req.message);
+  // console.log('req', req);
   pg.connect(connectionString, function(err, client, done) {
     if(err) {
       console.log('connection error: ', err);
       res.sendStatus(500);
     }
-    console.log('req.decodedToken: ', req.decodedToken);
+    // console.log('req.decodedToken: ', req.decodedToken);
     client.query('SELECT * FROM players', function(err, result) {
       done();
       if(err) {
