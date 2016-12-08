@@ -6,15 +6,15 @@ app.factory('DataFactory', ['$firebaseAuth', '$http', function($firebaseAuth, $h
 
   function logIn(){
     return auth.$signInWithPopup("google").then(function(firebaseUser) {
-      console.log('firebaseUser: ', firebaseUser);
       console.log("Firebase Authenticated as: ", firebaseUser.user.displayName);
+      console.log('firebaseUser.user.email: ', firebaseUser.user.email);
     }).catch(function(error) {
       console.log("Authentication failed: ", error);
     });
   };
 
   auth.$onAuthStateChanged(function(firebaseUser){
-      console.log('firebaseUser: ', firebaseUser);
+      // console.log('firebaseUser: ', firebaseUser);
       // self.currentUser = firebaseUser;
       if(firebaseUser) {
         firebaseUser.getToken().then(function(idToken) {
