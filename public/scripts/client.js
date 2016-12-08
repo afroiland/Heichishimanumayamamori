@@ -1,4 +1,4 @@
-var app = angular.module('myApp', ['ngRoute']);
+var app = angular.module('myApp', ['ngRoute', 'firebase']);
 
 app.config(['$routeProvider', function($routeProvider) {
   $routeProvider
@@ -7,17 +7,22 @@ app.config(['$routeProvider', function($routeProvider) {
       controller: 'HomeController',
       controllerAs: 'home'
     })
-    .when('/roster' ,{
+    .when('/roster', {
       templateUrl: '/views/templates/roster.html',
       controller: 'RosterController',
       controllerAs: 'roster'
     })
-    .when('/leaderboard' ,{
+    .when('/leaderboard', {
       templateUrl: '/views/templates/leaderboard.html',
       controller: 'LeaderboardController',
       controllerAs: 'leaderboard'
     })
-    .when('/admin' ,{
+    .when('/about', {
+      templateUrl: '/views/templates/about.html',
+      controller: 'AboutController',
+      controllerAs: 'about'
+    })
+    .when('/admin', {
       templateUrl: '/views/templates/admin.html',
       controller: 'AdminController',
       controllerAs: 'admin'
@@ -28,7 +33,7 @@ app.config(['$routeProvider', function($routeProvider) {
 
 }]);
 
-app.controller('HomeController', ['firebase', '$http', 'DataFactory', function($firebaseAuth, $http, DataFactory) {
+app.controller('HomeController', ['$firebaseAuth', '$http', 'DataFactory', function($firebaseAuth, $http, DataFactory) {
   console.log('home controller running');
   var auth = $firebaseAuth();
   var self = this;
@@ -36,7 +41,6 @@ app.controller('HomeController', ['firebase', '$http', 'DataFactory', function($
   self.currentUser = {};
   self.newUser = {};
 
-  self.message = "Home controller is the best!";
   self.logIn = function(){
     auth.$signInWithPopup("google").then(function(firebaseUser) {
       console.log("Firebase Authenticated as: ", firebaseUser.user.displayName);
@@ -69,7 +73,6 @@ app.controller('HomeController', ['firebase', '$http', 'DataFactory', function($
 app.controller('RosterController', ['$http', 'DataFactory', function($http, DataFactory) {
   console.log('roster controller running');
   var self = this;
-  self.message = "Roster controller is the best!";
   self.newPlayer = {};
   self.players = [];
 
@@ -98,7 +101,6 @@ app.controller('RosterController', ['$http', 'DataFactory', function($http, Data
 app.controller('LeaderboardController', ["$http", 'DataFactory', function($http, DataFactory) {
   console.log('leaderboard controller running');
   var self = this;
-  self.message = "Leaderboard controller is the best!";
   self.users = [];
 
   getUsers();
@@ -113,11 +115,14 @@ app.controller('LeaderboardController', ["$http", 'DataFactory', function($http,
 
 }]);
 
+app.controller('AboutController', ['$http', 'DataFactory', function($http, DataFactory) {
+  console.log('about controller running');
+  var self = this;
+}]);
+
 app.controller('AdminController', ['$http', 'DataFactory', function($http, DataFactory) {
   console.log('admin controller running');
   var self = this;
-  self.message = "Admin controller is the best!";
-
 }]);
 
 
