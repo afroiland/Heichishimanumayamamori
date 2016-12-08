@@ -1,4 +1,4 @@
-app.controller('HomeController', ['$http', 'firebase', 'DataFactory', function($http, $firebaseAuth, DataFactory) {
+app.controller('HomeController', ['$http', '$firebaseAuth', 'DataFactory', function($http, $firebaseAuth, DataFactory) {
   console.log('home controller running');
   var auth = $firebaseAuth();
   var self = this;
