@@ -59,8 +59,6 @@ app.factory('DataFactory', ['$firebaseAuth', '$http', function($firebaseAuth, $h
 
 
 
-
-
   var publicApi = {
     logIn: function() {
       return logIn();

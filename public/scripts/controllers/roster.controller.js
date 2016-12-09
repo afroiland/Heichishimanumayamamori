@@ -4,13 +4,6 @@ app.controller('RosterController', ['$http', 'DataFactory', function($http, Data
   self.newPlayer = {};
   self.players = [];
 
-
-  // self.getPlayers = DataFactory.getPlayers;
-  // self.players = DataFactory.getPlayers();
-
-  // self.getPlayers();
-  // console.log('self.players: ', self.players);
-
   getPlayers();
 
   function getPlayers() {
@@ -23,8 +16,6 @@ app.controller('RosterController', ['$http', 'DataFactory', function($http, Data
       self.players = DataFactory.playerData();
     }
   }
-
-
 
 
 

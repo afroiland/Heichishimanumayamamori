@@ -11,7 +11,9 @@ router.get('/', function(req, res) {
       res.sendStatus(500);
     }
     // console.log('req.decodedToken: ', req.decodedToken);
-    client.query('SELECT * FROM players', function(err, result) {
+    client.query('SELECT * FROM players WHERE user_id = $1',
+    [2],
+    function(err, result) {
       done();
       if(err) {
         res.sendStatus(500);
