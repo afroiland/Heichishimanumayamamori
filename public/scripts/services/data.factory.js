@@ -3,8 +3,9 @@ app.factory('DataFactory', ['$firebaseAuth', '$http', function($firebaseAuth, $h
 
   var currentUser = undefined;
   var auth = $firebaseAuth();
+  var players = undefined;
 
-  function logIn(){
+  function logIn() {
     return auth.$signInWithPopup("google").then(function(firebaseUser) {
       console.log("Firebase Authenticated as: ", firebaseUser.user.displayName);
       console.log('firebaseUser.user.email: ', firebaseUser.user.email);
@@ -46,15 +47,35 @@ app.factory('DataFactory', ['$firebaseAuth', '$http', function($firebaseAuth, $h
   //     }
   // });
 
+
+
+  function getPlayers() {
+    return $http.get('/roster').then(function(response) {
+        console.log('response.data: ', response.data);
+        players = response.data;
+      });
+  }
+
+
+
+
+
+
   var publicApi = {
     logIn: function() {
       return logIn();
     },
+    logOut: function() {
+      return logOut();
+    },
     // stateChanged: function() {
     //   return stateChanged();
     // },
-    logOut: function() {
-      return logOut();
+    getPlayers: function() {
+      return getPlayers();
+    },
+    playerData: function() {
+      return players;
     }
   };
 

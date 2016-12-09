@@ -4,15 +4,37 @@ app.controller('RosterController', ['$http', 'DataFactory', function($http, Data
   self.newPlayer = {};
   self.players = [];
 
+
+  // self.getPlayers = DataFactory.getPlayers;
+  // self.players = DataFactory.getPlayers();
+
+  // self.getPlayers();
+  // console.log('self.players: ', self.players);
+
   getPlayers();
 
   function getPlayers() {
-    $http.get('/roster')
-      .then(function(response) {
-        // console.log('response.data: ', response.data);
-        self.players = response.data;
+    if(DataFactory.playerData() === undefined) {
+      DataFactory.getPlayers().then(function(response) {
+        self.players = DataFactory.playerData();
+        console.log('got data from factory: ', self.players);
       });
+    } else {
+      self.players = DataFactory.playerData();
+    }
   }
+
+
+
+
+
+  // function getPlayers() {
+  //   $http.get('/roster')
+  //     .then(function(response) {
+  //       // console.log('response.data: ', response.data);
+  //       self.players = response.data;
+  //     });
+  // }
 
   self.addPlayer = function() {
     console.log('new player: ', self.newPlayer);
