@@ -19,8 +19,15 @@ app.controller('RosterController', ['$http', 'DataFactory', function($http, Data
     // }
   }
 
-  console.log('self.currentUSer: ', self.currentUser);
-  console.log('self.loggedIn: ', self.loggedIn);
+  // console.log('self.currentUser: ', self.currentUser);
+  checkInfo();
+
+  function checkInfo () {
+    console.log('self.loggedIn: ', self.loggedIn);
+    if (self.loggedIn == true) {
+      console.log('self.currentUser.email: ', self.currentUser.email);
+    }
+  }
 
   // self.addPlayer = DataFactory.addPlayer;
   self.addPlayer = function() {
@@ -28,7 +35,7 @@ app.controller('RosterController', ['$http', 'DataFactory', function($http, Data
     console.log('new player: ', self.newPlayer);
     $http.post('/roster', self.newPlayer)
       .then(function(response) {
-        console.log('POST finished. getPlayers(); again.');
+        // console.log('POST finished. getPlayers(); again.');
         getPlayers();
       });
     } else {

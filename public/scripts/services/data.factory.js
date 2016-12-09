@@ -3,6 +3,7 @@ app.factory('DataFactory', ['$firebaseAuth', '$http', function($firebaseAuth, $h
 
   var auth = $firebaseAuth();
   var currentUser = undefined;
+
   var loggedIn = false;
 
   var players = undefined;
@@ -13,7 +14,7 @@ app.factory('DataFactory', ['$firebaseAuth', '$http', function($firebaseAuth, $h
       console.log("Firebase Authenticated as: ", firebaseUser.user.displayName);
       console.log('firebaseUser.user.email: ', firebaseUser.user.email);
       currentUser = firebaseUser.user;
-      console.log('currentUser: ', currentUser);
+      // console.log('currentUser: ', currentUser);
       loggedIn = true;
     }).catch(function(error) {
       console.log("Authentication failed: ", error);
@@ -62,18 +63,18 @@ app.factory('DataFactory', ['$firebaseAuth', '$http', function($firebaseAuth, $h
 
   function getPlayers() {
     return $http.get('/roster').then(function(response) {
-      console.log('response.data: ', response.data);
+      // console.log('response.data: ', response.data);
       players = response.data;
     });
     players = undefined;
   }
 
-  function addPlayer() {
-    return $http.post('/roster', newPlayer).then(function(response) {
-      console.log('POST finished. getPlayers(); again.');
-      getPlayers();
-    });
-  }
+  // function addPlayer() {
+  //   return $http.post('/roster', newPlayer).then(function(response) {
+  //     console.log('POST finished. getPlayers(); again.');
+  //     getPlayers();
+  //   });
+  // }
 
 
 
