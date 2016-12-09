@@ -24,9 +24,11 @@ router.get('/', function(req, res) {
   });
 });
 
-router.post('/', function(req, res) {
+router.post('/:id', function(req, res) {
   var newPlayer = req.body;
+  var userEmail = req.params.id;
   console.log('newPLayer: ', newPlayer);
+  console.log('userEmail: ', userEmail);
   pg.connect(connectionString, function(err, client, done) {
     if(err) {
       console.log('connection error: ', err);

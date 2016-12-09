@@ -33,7 +33,7 @@ app.controller('RosterController', ['$http', 'DataFactory', function($http, Data
   self.addPlayer = function() {
     if(self.loggedIn == true) {
     console.log('new player: ', self.newPlayer);
-    $http.post('/roster', self.newPlayer)
+    $http.post('/roster/' + self.currentUser.email, self.newPlayer)
       .then(function(response) {
         // console.log('POST finished. getPlayers(); again.');
         getPlayers();
