@@ -4,31 +4,33 @@ var pg = require('pg');
 var connectionString = 'postgres://localhost:5432/sigma';
 
 router.get('/', function(req, res) {
-  // console.log('req', req);
+  console.log('req', req);
   pg.connect(connectionString, function(err, client, done) {
     if(err) {
       console.log('connection error: ', err);
       res.sendStatus(500);
+    } else {
+      // console.log('req.decodedToken: ', req.decodedToken);
+      client.query('SELECT * FROM players WHERE user_id = $1',
+      [req.userId],
+      function(err, result) {
+        done();
+        if(err) {
+          res.sendStatus(500);
+        } else {
+          res.send(result.rows);
+          console.log('result.rows: ', result.rows);
+        }
+      });
     }
-    // console.log('req.decodedToken: ', req.decodedToken);
-    client.query('SELECT * FROM players WHERE user_id = $1',
-    [1],
-    function(err, result) {
-      done();
-      if(err) {
-        res.sendStatus(500);
-      }
-      res.send(result.rows);
-      // console.log('result.rows: ', result.rows);
-    });
   });
 });
 
-router.post('/:id', function(req, res) {
+router.post('/', function(req, res) {
   var newPlayer = req.body;
-  var userEmail = req.params.id;
+  // var userEmail = req.params.id;
   console.log('newPLayer: ', newPlayer);
-  console.log('userEmail: ', userEmail);
+  // console.log('userEmail: ', userEmail);
   pg.connect(connectionString, function(err, client, done) {
     if(err) {
       console.log('connection error: ', err);
@@ -48,30 +50,30 @@ router.post('/:id', function(req, res) {
           res.sendStatus(201);
         }
       });
+    })
   })
-})
 
-router.delete('/:id', function(req, res) {
-  playerID = req.params.id;
-  console.log('player id to delete: ', playerID);
-  pg.connect(connectionString, function(err, client, done) {
-    if(err) {
-      console.log('connection error: ', err);
-      res.sendStatus(500);
-    }
-    client.query(
-      'DELETE FROM players WHERE id = $1',
-      [playerID],
-      function(err, result) {
-        done();
-        if(err) {
-          res.sendStatus(500);
-        } else {
-          res.sendStatus(200);
-        }
+  router.delete('/:id', function(req, res) {
+    playerID = req.params.id;
+    console.log('player id to delete: ', playerID);
+    pg.connect(connectionString, function(err, client, done) {
+      if(err) {
+        console.log('connection error: ', err);
+        res.sendStatus(500);
+      }
+      client.query(
+        'DELETE FROM players WHERE id = $1',
+        [playerID],
+        function(err, result) {
+          done();
+          if(err) {
+            res.sendStatus(500);
+          } else {
+            res.sendStatus(200);
+          }
+        });
       });
     });
-});
 
 
-module.exports = router;
+    module.exports = router;

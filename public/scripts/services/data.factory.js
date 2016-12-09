@@ -62,11 +62,38 @@ app.factory('DataFactory', ['$firebaseAuth', '$http', function($firebaseAuth, $h
   // });
 
   function getPlayers() {
-    return $http.get('/roster').then(function(response) {
-      // console.log('response.data: ', response.data);
-      players = response.data;
-    });
-    players = undefined;
+    if(currentUser) {
+      // logged in
+      return currentUser.getToken().then(
+        function(idToken){
+          return $http({
+            method: 'GET',
+            url: '/roster',
+            headers: {
+              id_token: idToken
+            }
+          }).then(function(response){
+            players = response.data;
+            console.log('Factory getPlayers: ', players);
+            // return players;
+          },
+            function(response) {
+              console.log('factory get error response: ', response);
+              // didn't work
+              players = undefined;
+            });
+        });
+    } else {
+      console.log('factory get players not logged in.');
+      currentUser = undefined;
+    }
+
+      // previous, no token sent
+    // $http.get('/roster').then(function(response) {
+    //   // console.log('response.data: ', response.data);
+    //   players = response.data;
+    // });
+    // players = undefined;
   }
 
   // function addPlayer() {
@@ -75,9 +102,6 @@ app.factory('DataFactory', ['$firebaseAuth', '$http', function($firebaseAuth, $h
   //     getPlayers();
   //   });
   // }
-
-
-
 
   var publicApi = {
     logIn: function() {
@@ -93,6 +117,7 @@ app.factory('DataFactory', ['$firebaseAuth', '$http', function($firebaseAuth, $h
       return getPlayers();
     },
     playerData: function() {
+      console.log('factory players is:', players);
       return players;
     },
     addPlayer: function() {

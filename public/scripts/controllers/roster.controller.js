@@ -1,4 +1,4 @@
-app.controller('RosterController', ['$http', 'DataFactory', function($http, DataFactory) {
+app.controller('RosterController', ['$http', 'DataFactory', '$scope', function($http, DataFactory, $scope) {
   console.log('roster controller running');
   var self = this;
   self.newPlayer = {};
@@ -9,18 +9,26 @@ app.controller('RosterController', ['$http', 'DataFactory', function($http, Data
   getPlayers();
 
   function getPlayers() {
-    // if(DataFactory.playerData() === undefined) {
-      DataFactory.getPlayers().then(function(response) {
+    if(self.loggedIn == true) {
+      if(DataFactory.playerData() === undefined) {
+        DataFactory.getPlayers().then(function(response) {
+          console.log('response from factory', response);
+          // self.players = response;
+          // self.players = [{first_name: 'hello'}];
+          self.players = DataFactory.playerData();
+          console.log('got data from factory: ', self.players);
+          $scope.$apply(); // works but is wrong!
+        });
+      } else {
         self.players = DataFactory.playerData();
-        console.log('got data from factory: ', self.players);
-      });
-    // } else {
-      // self.players = DataFactory.playerData();
-    // }
+      }
+    } else {
+      console.log('roster controller getPlayers not logged in');
+    }
   }
 
   // console.log('self.currentUser: ', self.currentUser);
-  checkInfo();
+  // checkInfo();
 
   function checkInfo () {
     console.log('self.loggedIn: ', self.loggedIn);
@@ -33,7 +41,7 @@ app.controller('RosterController', ['$http', 'DataFactory', function($http, Data
   self.addPlayer = function() {
     if(self.loggedIn == true) {
     console.log('new player: ', self.newPlayer);
-    $http.post('/roster/' + self.currentUser.email, self.newPlayer)
+    $http.post('/roster', self.newPlayer)
       .then(function(response) {
         // console.log('POST finished. getPlayers(); again.');
         getPlayers();
