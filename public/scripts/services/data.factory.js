@@ -1,9 +1,12 @@
 app.factory('DataFactory', ['$firebaseAuth', '$http', function($firebaseAuth, $http) {
   console.log("factory running");
 
-  var currentUser = undefined;
   var auth = $firebaseAuth();
+  var currentUser = undefined;
+  var loggedIn = false;
+
   var players = undefined;
+  var newPlayer = undefined;
 
   function logIn() {
     return auth.$signInWithPopup("google").then(function(firebaseUser) {
@@ -11,6 +14,7 @@ app.factory('DataFactory', ['$firebaseAuth', '$http', function($firebaseAuth, $h
       console.log('firebaseUser.user.email: ', firebaseUser.user.email);
       currentUser = firebaseUser.user;
       console.log('currentUser: ', currentUser);
+      loggedIn = true;
     }).catch(function(error) {
       console.log("Authentication failed: ", error);
     });
@@ -19,10 +23,19 @@ app.factory('DataFactory', ['$firebaseAuth', '$http', function($firebaseAuth, $h
   function logOut() {
     return auth.$signOut().then(function() {
       currentUser = undefined;
+      loggedIn = false;
       console.log('logged out');
       console.log('currentUser: ', currentUser);
     });
   };
+
+  function getCurrentUser() {
+    return currentUser;
+  }
+
+  function getUserStatus() {
+    return loggedIn;
+  }
 
   // auth.$onAuthStateChanged(function(firebaseUser){
   //     // console.log('firebaseUser: ', firebaseUser);
@@ -47,13 +60,19 @@ app.factory('DataFactory', ['$firebaseAuth', '$http', function($firebaseAuth, $h
   //     }
   // });
 
-
-
   function getPlayers() {
     return $http.get('/roster').then(function(response) {
-        console.log('response.data: ', response.data);
-        players = response.data;
-      });
+      console.log('response.data: ', response.data);
+      players = response.data;
+    });
+    players = undefined;
+  }
+
+  function addPlayer() {
+    return $http.post('/roster', newPlayer).then(function(response) {
+      console.log('POST finished. getPlayers(); again.');
+      getPlayers();
+    });
   }
 
 
@@ -74,6 +93,15 @@ app.factory('DataFactory', ['$firebaseAuth', '$http', function($firebaseAuth, $h
     },
     playerData: function() {
       return players;
+    },
+    addPlayer: function() {
+      return addPlayer;
+    },
+    currentUser: function() {
+      return getCurrentUser();
+    },
+    loggedIn: function() {
+      return getUserStatus();
     }
   };
 

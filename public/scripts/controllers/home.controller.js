@@ -2,7 +2,7 @@ app.controller('HomeController', ['$http', '$firebaseAuth', 'DataFactory', funct
   console.log('home controller running');
 
   var self = this;
-  var auth = $firebaseAuth();
+  // var auth = $firebaseAuth();
   // self.currentUser = {};
   // self.newUser = {};
 

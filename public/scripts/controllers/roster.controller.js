@@ -3,6 +3,8 @@ app.controller('RosterController', ['$http', 'DataFactory', function($http, Data
   var self = this;
   self.newPlayer = {};
   self.players = [];
+  self.currentUser = DataFactory.currentUser();
+  self.loggedIn = DataFactory.loggedIn();
 
   getPlayers();
 
@@ -17,23 +19,21 @@ app.controller('RosterController', ['$http', 'DataFactory', function($http, Data
     }
   }
 
+  console.log('self.currentUSer: ', self.currentUser);
+  console.log('self.loggedIn: ', self.loggedIn);
 
-
-  // function getPlayers() {
-  //   $http.get('/roster')
-  //     .then(function(response) {
-  //       // console.log('response.data: ', response.data);
-  //       self.players = response.data;
-  //     });
-  // }
-
+  // self.addPlayer = DataFactory.addPlayer;
   self.addPlayer = function() {
+    if(self.loggedIn == true) {
     console.log('new player: ', self.newPlayer);
     $http.post('/roster', self.newPlayer)
       .then(function(response) {
         console.log('POST finished. getPlayers(); again.');
         getPlayers();
       });
+    } else {
+      alert("You must be logged in to add a player.")
+    }
   }
 
   self.deletePlayer = function(player) {

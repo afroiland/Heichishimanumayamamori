@@ -12,7 +12,7 @@ router.get('/', function(req, res) {
     }
     // console.log('req.decodedToken: ', req.decodedToken);
     client.query('SELECT * FROM players WHERE user_id = $1',
-    [2],
+    [1],
     function(err, result) {
       done();
       if(err) {
@@ -34,7 +34,7 @@ router.post('/', function(req, res) {
     }
     client.query(
       //figure out how to fix this query after the factory is up
-      'INSERT INTO players (first_name, last_name, linked_user) ' +
+      'INSERT INTO players (first_name, last_name, user_id) ' +
       'VALUES ($1, $2, $3)',
       [newPlayer.first_name, newPlayer.last_name, 1],
       function(err, result) {
