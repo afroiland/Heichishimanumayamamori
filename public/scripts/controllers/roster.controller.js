@@ -9,14 +9,14 @@ app.controller('RosterController', ['$http', 'DataFactory', function($http, Data
   getPlayers();
 
   function getPlayers() {
-    if(DataFactory.playerData() === undefined) {
+    // if(DataFactory.playerData() === undefined) {
       DataFactory.getPlayers().then(function(response) {
         self.players = DataFactory.playerData();
         console.log('got data from factory: ', self.players);
       });
-    } else {
-      self.players = DataFactory.playerData();
-    }
+    // } else {
+      // self.players = DataFactory.playerData();
+    // }
   }
 
   console.log('self.currentUSer: ', self.currentUser);
