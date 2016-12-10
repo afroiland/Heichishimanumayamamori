@@ -22,11 +22,11 @@ app.get('/', function(req, res) {
 
 app.use('/leaderboard', leaderboard);
 app.use('/about', about);
-
+app.use('/admin', admin);
 app.use(decoder.token);
 
 app.use('/roster', roster);
-app.use('/admin', admin);
+
 app.use('/privateData', privateData);
 
 app.get('/home', function(req, res) {

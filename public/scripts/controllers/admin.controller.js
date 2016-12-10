@@ -2,10 +2,15 @@ app.controller('AdminController', ['$http', 'DataFactory', function($http, DataF
   console.log('admin controller running');
   var self = this;
 
-  adminTest();
+  self.players = [];
 
-  function adminTest() {
-    console.log('admin test');
+  getPlayers();
+
+  function getPlayers() {
+    $http.get('/admin/players')
+    .then(function(response) {
+      self.players = response.data;
+    })
   }
 
 }]);

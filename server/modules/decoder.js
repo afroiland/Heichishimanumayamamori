@@ -16,6 +16,8 @@ var tokenDecoder = function(req, res, next){
   if (verbose) {console.log('req.headers.id_token: ', req.headers.id_token);}
   if (req.headers.id_token == undefined){
     res.sendStatus(403);
+    //might want to uncomment next line for testing
+    // next();
   } else {
     admin.auth().verifyIdToken(req.headers.id_token).then(function(decodedToken) {
       // Adding the decodedToken to the request so that downstream processes can use it
