@@ -4,7 +4,7 @@
   </div>
   <div class="form-group">
     <label for="new_point_total">New Point Total</label>
-    <input type="number" ng-model="admin.player.new_point_total" name="new_point_total" class="form-control" />
+    <input type="number" ng-model="selectedPlayer.new_point_total" name="new_point_total" class="form-control" />
   </div>
-  <button class="btn btn-default" ng-click="admin.updatePoints()">Update</button>
+  <button class="btn btn-default" ng-click="admin.updatePoints(selectedPlayer)">Update</button>
 </form>

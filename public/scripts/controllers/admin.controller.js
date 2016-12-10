@@ -10,8 +10,16 @@ app.controller('AdminController', ['$http', 'DataFactory', function($http, DataF
     $http.get('/admin/players')
     .then(function(response) {
       self.players = response.data;
-      console.log('response.data: ', response.data);
+      // console.log('response.data: ', response.data);
     })
+  }
+
+  self.updatePoints = function(player) {
+    // console.log('updating player points for: ', player);
+    $http.put('/admin/' + player.id, player)
+      .then(function(response) {
+        // console.log('updated player points');
+    });
   }
 
 }]);

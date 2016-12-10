@@ -1,5 +1,5 @@
 app.factory('DataFactory', ['$firebaseAuth', '$http', function($firebaseAuth, $http) {
-  console.log("factory running");
+  // console.log("factory running");
 
   var auth = $firebaseAuth();
   var currentUser = undefined;
