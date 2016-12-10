@@ -20,20 +20,21 @@ app.get('/', function(req, res) {
   res.sendFile(path.join(__dirname, '../public/views/index.html'));
 });
 
+app.use('/leaderboard', leaderboard);
+app.use('/about', about);
+
 app.use(decoder.token);
 
 app.use('/roster', roster);
-app.use('/leaderboard', leaderboard);
-app.use('/about', about);
 app.use('/admin', admin);
 app.use('/privateData', privateData);
 
 app.get('/home', function(req, res) {
-    res.send("hello from the server");
+  res.send("hello from the server");
 });
 
 pgConnection.connect();
 
 app.listen(app.get("port"), function(){
-    console.log("Server up and running on Port", port);
+  console.log("Server up and running on Port", port);
 });

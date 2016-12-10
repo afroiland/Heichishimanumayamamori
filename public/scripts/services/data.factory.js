@@ -133,5 +133,4 @@ app.factory('DataFactory', ['$firebaseAuth', '$http', function($firebaseAuth, $h
 
   return publicApi;
 
-
 }]);

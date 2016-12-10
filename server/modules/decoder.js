@@ -1,7 +1,11 @@
+var verbose = false;
+
 var express = require('express');
 var admin = require("firebase-admin");
 var pg = require('pg');
 var connectionString = 'postgres://localhost:5432/sigma';
+
+if (verbose) {console.log('decoder running');}
 
 admin.initializeApp({
   credential: admin.credential.cert("./server/firebase-service-account.json"),
@@ -9,7 +13,7 @@ admin.initializeApp({
 });
 
 var tokenDecoder = function(req, res, next){
-  console.log('req.headers.id_token: ', req.headers.id_token);
+  if (verbose) {console.log('req.headers.id_token: ', req.headers.id_token);}
   if (req.headers.id_token == undefined){
     res.sendStatus(403);
   } else {

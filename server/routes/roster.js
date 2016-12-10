@@ -4,7 +4,7 @@ var pg = require('pg');
 var connectionString = 'postgres://localhost:5432/sigma';
 
 router.get('/', function(req, res) {
-  console.log('req', req);
+  // console.log('req', req);    //this is a massive console log
   pg.connect(connectionString, function(err, client, done) {
     if(err) {
       console.log('connection error: ', err);
