@@ -10,6 +10,7 @@ app.controller('AdminController', ['$http', 'DataFactory', function($http, DataF
     $http.get('/admin/players')
     .then(function(response) {
       self.players = response.data;
+      console.log('response.data: ', response.data);
     })
   }
 
