@@ -18,7 +18,7 @@ app.controller('AdminController', ['$http', 'DataFactory', function($http, DataF
     // console.log('updating player points for: ', player);
     $http.put('/admin/' + player.id, player)
       .then(function(response) {
-        // console.log('updated player points');
+        console.log('updated points for', player.first_name + ' ' + player.last_name);
     });
   }
 

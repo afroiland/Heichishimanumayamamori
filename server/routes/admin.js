@@ -38,6 +38,7 @@ router. put('/:id', function(req, res) {
         console.log('update error: ', err);
         res.sendStatus(500);
       } else {
+        // console.log('successfully updated points for', player.first_name + " " + player.last_name);
         res.sendStatus(200);
       }
     });
