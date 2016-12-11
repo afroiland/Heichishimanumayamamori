@@ -15,10 +15,11 @@ app.controller('AdminController', ['$http', 'DataFactory', function($http, DataF
   }
 
   self.updatePoints = function(player) {
+    //check for clearance here?
     // console.log('updating player points for: ', player);
     $http.put('/admin/' + player.id, player)
       .then(function(response) {
-        console.log('updated points for', player.first_name + ' ' + player.last_name);
+        console.log('updated points for', player.player_first_name + ' ' + player.player_last_name);
     });
   }
 

@@ -1,11 +1,11 @@
-var verbose = false;
+var verbose = true;
 
 var express = require('express');
 var admin = require("firebase-admin");
 var pg = require('pg');
 var connectionString = 'postgres://localhost:5432/sigma';
 
-if (verbose) {console.log('decoder running');}
+if (verbose) {console.log('decoder running')};
 
 admin.initializeApp({
   credential: admin.credential.cert("./server/firebase-service-account.json"),
@@ -13,7 +13,7 @@ admin.initializeApp({
 });
 
 var tokenDecoder = function(req, res, next){
-  if (verbose) {console.log('req.headers.id_token: ', req.headers.id_token);}
+  if (verbose) {console.log('req.headers.id_token: ', req.headers.id_token)};
   if (req.headers.id_token == undefined){
     res.sendStatus(403);
     //might want to uncomment next line for testing
@@ -38,13 +38,12 @@ var tokenDecoder = function(req, res, next){
           req.userId = result.rows[0].id;
           console.log('userId: ', req.userId);
           console.log('result.rows: ', result.rows);
+          console.log('decodedToken: ', decodedToken);
           req.decodedToken = decodedToken;
           next();
           }
         });
       });
-
-
     })
     .catch(function(error) {
       // If the id_token isn't right, you end up in this callback function

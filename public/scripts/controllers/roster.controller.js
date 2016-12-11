@@ -30,12 +30,12 @@ app.controller('RosterController', ['$http', 'DataFactory', '$scope', function($
   // console.log('self.currentUser: ', self.currentUser);
   // checkInfo();
 
-  function checkInfo () {
-    console.log('self.loggedIn: ', self.loggedIn);
-    if (self.loggedIn == true) {
-      console.log('self.currentUser.email: ', self.currentUser.email);
-    }
-  }
+  // function checkInfo () {
+  //   console.log('self.loggedIn: ', self.loggedIn);
+  //   if (self.loggedIn == true) {
+  //     console.log('self.currentUser.email: ', self.currentUser.email);
+  //   }
+  // }
 
   // self.addPlayer = DataFactory.addPlayer;
   self.addPlayer = function() {
