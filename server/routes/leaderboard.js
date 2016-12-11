@@ -10,7 +10,8 @@ router.get('/', function(req, res) {
       console.log('connection error: ', err);
       res.sendStatus(500);
     }
-    client.query('SELECT first_name, last_name, user_points FROM users', function(err, result) {
+    client.query('SELECT DISTINCT first_name, last_name, SUM(tourney_points) FROM players JOIN users ON players.user_id = users.id WHERE players.user_id = users.id GROUP BY first_name, last_name',
+      function(err, result) {
       done();
       if(err) {
         console.log('select query error: ', err);
