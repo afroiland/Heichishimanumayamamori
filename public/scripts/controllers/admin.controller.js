@@ -2,7 +2,17 @@ app.controller('AdminController', ['$http', 'DataFactory', function($http, DataF
   console.log('admin controller running');
   var self = this;
 
+  self.currentUser = DataFactory.currentUser();
   self.players = [];
+
+  // checkInfo();
+  //
+  // function checkInfo () {
+  //   console.log('self.loggedIn: ', self.loggedIn);
+  //   if (self.loggedIn == true) {
+  //     console.log('self.currentUser.email: ', self.currentUser.email);
+  //   }
+  // }
 
   getPlayers();
 
@@ -16,11 +26,16 @@ app.controller('AdminController', ['$http', 'DataFactory', function($http, DataF
 
   self.updatePoints = function(player) {
     //check for clearance here?
-    // console.log('updating player points for: ', player);
-    $http.put('/admin/' + player.id, player)
-      .then(function(response) {
-        console.log('updated points for', player.player_first_name + ' ' + player.player_last_name);
-    });
+    console.log('self.currentUser: ', self.currentUser);
+    // if(self.currentUser.email == 'andrew.froiland@gmail.com') {
+      // console.log('updating player points for: ', player);
+      $http.put('/admin/' + player.id, player)
+        .then(function(response) {
+          console.log('updated points for', player.player_first_name + ' ' + player.player_last_name);
+      });
+    // } else {
+    //   alert('Not authorized');
+    // }
   }
 
 }]);

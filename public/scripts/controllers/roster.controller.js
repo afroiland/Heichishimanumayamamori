@@ -47,7 +47,7 @@ app.controller('RosterController', ['$http', 'DataFactory', '$scope', function($
         getPlayers();
       });
     } else {
-      alert("You must be logged in to add a player.")
+      alert("You must be logged in to add a player.");
     }
   }
 
