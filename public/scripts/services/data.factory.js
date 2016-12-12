@@ -3,6 +3,8 @@ app.factory('DataFactory', ['$firebaseAuth', '$http', function($firebaseAuth, $h
 
   var auth = $firebaseAuth();
   var currentUser = undefined;
+  var users = undefined;
+  var emailInDatabase = false;
 
   var loggedIn = false;
 
@@ -14,8 +16,31 @@ app.factory('DataFactory', ['$firebaseAuth', '$http', function($firebaseAuth, $h
       console.log("Firebase Authenticated as: ", firebaseUser.user.displayName);
       console.log('firebaseUser.user.email: ', firebaseUser.user.email);
       currentUser = firebaseUser.user;
+      console.log('currentUser: ', currentUser);
       // console.log('currentUser: ', currentUser);
       loggedIn = true;
+
+      // //Trying to add new user to db
+      // $http.get('/login')
+      //   .then(function(response) {
+      //     console.log('login response.data: ', response.data);
+      //     users = response.data;
+      //   });
+      // for (var i = 0; i < users.length; i++) {
+      //   if(currentUser.email == users[i].email) {
+      //     emailInDatabase = true;
+      //   }
+      // }
+      // if (emailInDatabase == false) {
+      //   console.log('trying to add currentUser: ', currentUser);
+      //   $http.post('/login', currentUser)
+      //     .then(function(response) {
+      //       console.log('added user to db:');
+      //     })
+      // }
+
+
+
     }).catch(function(error) {
       console.log("Authentication failed: ", error);
     });
@@ -64,8 +89,9 @@ app.factory('DataFactory', ['$firebaseAuth', '$http', function($firebaseAuth, $h
   function getPlayers() {
     if(currentUser) {
       // logged in
-      return currentUser.getToken().then(
+      return currentUser.getToken().then(   //firebase getting idToken
         function(idToken){
+          // console.log('idToken: ', idToken);
           return $http({
             method: 'GET',
             url: '/roster',
@@ -74,7 +100,7 @@ app.factory('DataFactory', ['$firebaseAuth', '$http', function($firebaseAuth, $h
             }
           }).then(function(response){
             players = response.data;
-            console.log('Factory getPlayers: ', players);
+            // console.log('Factory getPlayers: ', players);
             // return players;
           },
             function(response) {
@@ -95,6 +121,38 @@ app.factory('DataFactory', ['$firebaseAuth', '$http', function($firebaseAuth, $h
     // });
     // players = undefined;
   }
+
+  function addPlayer() {
+    console.log('factory adding player');
+    if (currentUser) {
+      return currentUser.getToken().then(
+        function(idToken) {
+          $http({
+            method: 'POST',
+            url: '/roster',
+            headers: {
+              id_token: idToken
+            }
+          }).then(function(response) {
+            console.log('added player, getting players again');
+            getPlayers();
+        });
+      });
+    } else {
+      console.log('factory add player not logged in');
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+
 
   // function addPlayer() {
   //   return $http.post('/roster', newPlayer).then(function(response) {
@@ -117,7 +175,7 @@ app.factory('DataFactory', ['$firebaseAuth', '$http', function($firebaseAuth, $h
       return getPlayers();
     },
     playerData: function() {
-      console.log('factory players is:', players);
+      // console.log('factory players is:', players);
       return players;
     },
     addPlayer: function() {

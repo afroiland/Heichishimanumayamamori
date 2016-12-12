@@ -1,4 +1,4 @@
-var verbose = true;
+var verbose = false;
 
 var express = require('express');
 var admin = require("firebase-admin");
@@ -13,6 +13,7 @@ admin.initializeApp({
 });
 
 var tokenDecoder = function(req, res, next){
+  if (verbose) {console.log('req.headers: ', req.headers)};
   if (verbose) {console.log('req.headers.id_token: ', req.headers.id_token)};
   if (req.headers.id_token == undefined){
     res.sendStatus(403);
@@ -21,7 +22,7 @@ var tokenDecoder = function(req, res, next){
   } else {
     admin.auth().verifyIdToken(req.headers.id_token).then(function(decodedToken) {
       // Adding the decodedToken to the request so that downstream processes can use it
-      console.log('decoded token: ', decodedToken);
+      if (verbose) {console.log('decoded token: ', decodedToken)};
       pg.connect(connectionString, function(err, client, done) {
         if(err) {
           console.log('connection error: ', err);

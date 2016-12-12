@@ -9,6 +9,7 @@ var roster = require('./routes/roster');
 var leaderboard = require('./routes/leaderboard');
 var about = require('./routes/about');
 var admin = require('./routes/admin');
+var login = require('./routes/login');
 var port = 3000;
 
 app.set("port", (process.env.PORT || port));
@@ -25,6 +26,7 @@ app.use('/about', about);
 
 app.use(decoder.token);
 
+app.use('/login', login);
 app.use('/roster', roster);
 app.use('/admin', admin);
 app.use('/privateData', privateData);

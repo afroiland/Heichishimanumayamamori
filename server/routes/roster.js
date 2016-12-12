@@ -27,9 +27,10 @@ router.get('/', function(req, res) {
 });
 
 router.post('/', function(req, res) {
-  var newPlayer = req.body;
+  console.log('req.userId', req.userId);
+  var user_id = req.userId;
   // var userEmail = req.params.id;
-  console.log('newPLayer: ', newPlayer);
+  // console.log('newPLayer: ', newPlayer);
   // console.log('userEmail: ', userEmail);
   pg.connect(connectionString, function(err, client, done) {
     if(err) {
@@ -40,7 +41,8 @@ router.post('/', function(req, res) {
       //figure out how to fix this query after the factory is up
       'INSERT INTO players (player_first_name, player_last_name, user_id) ' +
       'VALUES ($1, $2, $3)',
-      [newPlayer.first_name, newPlayer.last_name, 1],
+      ['test11', 'test22', user_id],
+      // [newPlayer.first_name, newPlayer.last_name, 1],
       function(err, result) {
         done();
         if(err) {
@@ -50,8 +52,8 @@ router.post('/', function(req, res) {
           res.sendStatus(201);
         }
       });
-    })
-  })
+    });
+  });
 
   router.delete('/:id', function(req, res) {
     playerID = req.params.id;
