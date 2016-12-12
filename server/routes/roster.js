@@ -19,7 +19,7 @@ router.get('/', function(req, res) {
           res.sendStatus(500);
         } else {
           res.send(result.rows);
-          console.log('result.rows: ', result.rows);
+          // console.log('result.rows: ', result.rows);
         }
       });
     }
@@ -38,7 +38,7 @@ router.post('/', function(req, res) {
     }
     client.query(
       //figure out how to fix this query after the factory is up
-      'INSERT INTO players (first_name, last_name, user_id) ' +
+      'INSERT INTO players (player_first_name, player_last_name, user_id) ' +
       'VALUES ($1, $2, $3)',
       [newPlayer.first_name, newPlayer.last_name, 1],
       function(err, result) {
