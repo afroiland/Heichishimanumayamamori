@@ -25,7 +25,6 @@ app.controller('AdminController', ['$http', 'DataFactory', function($http, DataF
   }
 
   self.updatePoints = function(player) {
-    //check for clearance here?
     console.log('self.currentUser: ', self.currentUser);
     // if(self.currentUser.email == 'andrew.froiland@gmail.com') {
       // console.log('updating player points for: ', player);
