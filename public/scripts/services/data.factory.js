@@ -5,9 +5,7 @@ app.factory('DataFactory', ['$firebaseAuth', '$http', function($firebaseAuth, $h
   var currentUser = undefined;
   var users = undefined;
   var emailInDatabase = false;
-
   var loggedIn = false;
-
   var players = undefined;
   var newPlayer = undefined;
 
@@ -122,7 +120,7 @@ app.factory('DataFactory', ['$firebaseAuth', '$http', function($firebaseAuth, $h
     // players = undefined;
   }
 
-  function addPlayer() {
+  function addPlayer(test) {
     console.log('factory adding player');
     if (currentUser) {
       return currentUser.getToken().then(
@@ -132,6 +130,9 @@ app.factory('DataFactory', ['$firebaseAuth', '$http', function($firebaseAuth, $h
             url: '/roster',
             headers: {
               id_token: idToken
+            },
+            data: {
+              new_player: test
             }
           }).then(function(response) {
             console.log('added player, getting players again');
@@ -143,23 +144,12 @@ app.factory('DataFactory', ['$firebaseAuth', '$http', function($firebaseAuth, $h
     }
   }
 
+  function deletePlayer() {
+
+  }
 
 
 
-
-
-
-
-
-
-
-
-  // function addPlayer() {
-  //   return $http.post('/roster', newPlayer).then(function(response) {
-  //     console.log('POST finished. getPlayers(); again.');
-  //     getPlayers();
-  //   });
-  // }
 
   var publicApi = {
     logIn: function() {
@@ -186,6 +176,9 @@ app.factory('DataFactory', ['$firebaseAuth', '$http', function($firebaseAuth, $h
     },
     loggedIn: function() {
       return getUserStatus();
+    },
+    newPlayer: function() {
+      return newPlayer;
     }
   };
 

@@ -28,6 +28,9 @@ router.get('/', function(req, res) {
 
 router.post('/', function(req, res) {
   console.log('req.userId', req.userId);
+  console.log('req.body: ', req.body.new_player);
+  var playerFirstName = req.body.new_player.player_first_name;
+  var playerLastName = req.body.new_player.player_last_name;
   var user_id = req.userId;
   // var userEmail = req.params.id;
   // console.log('newPLayer: ', newPlayer);
@@ -41,7 +44,7 @@ router.post('/', function(req, res) {
       //figure out how to fix this query after the factory is up
       'INSERT INTO players (player_first_name, player_last_name, user_id) ' +
       'VALUES ($1, $2, $3)',
-      ['test11', 'test22', user_id],
+      [playerFirstName, playerLastName, user_id],
       // [newPlayer.first_name, newPlayer.last_name, 1],
       function(err, result) {
         done();

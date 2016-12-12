@@ -1,7 +1,7 @@
 app.controller('RosterController', ['$http', 'DataFactory', '$scope', function($http, DataFactory, $scope) {
   console.log('roster controller running');
   var self = this;
-  self.newPlayer = {};
+  self.newPlayer = DataFactory.newPlayer();
   self.players = [];
   self.currentUser = DataFactory.currentUser();
   self.loggedIn = DataFactory.loggedIn();
@@ -38,8 +38,6 @@ app.controller('RosterController', ['$http', 'DataFactory', '$scope', function($
   // }
 
   self.addPlayer = DataFactory.addPlayer();
-
-
 
 
   // self.addPlayer = function() {
