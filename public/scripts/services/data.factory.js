@@ -15,7 +15,6 @@ app.factory('DataFactory', ['$firebaseAuth', '$http', function($firebaseAuth, $h
       console.log('firebaseUser.user.email: ', firebaseUser.user.email);
       currentUser = firebaseUser.user;
       console.log('currentUser: ', currentUser);
-      // console.log('currentUser: ', currentUser);
       loggedIn = true;
 
       // //Trying to add new user to db
@@ -144,11 +143,29 @@ app.factory('DataFactory', ['$firebaseAuth', '$http', function($firebaseAuth, $h
     }
   }
 
-  function deletePlayer() {
-
+  function deletePlayer(thing) {
+    console.log('thing: ', thing);
+    if (currentUser) {
+      return currentUser.getToken().then(
+        function(idToken) {
+          $http({
+            method: 'DELETE',
+            url: '/roster',
+            headers: {
+              id_token: idToken
+            },
+            data: {
+              key: 'thing'
+            }
+          }).then(function (response) {
+            console.log('deleted player: ', thing);
+            getPlayers();
+        });
+      });
+    } else {
+      console.log('factory add player not logged in');
+    }
   }
-
-
 
 
   var publicApi = {
@@ -179,6 +196,9 @@ app.factory('DataFactory', ['$firebaseAuth', '$http', function($firebaseAuth, $h
     },
     newPlayer: function() {
       return newPlayer;
+    },
+    deletePlayer: function() {
+      return deletePlayer;
     }
   };
 

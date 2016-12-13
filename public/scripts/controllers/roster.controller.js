@@ -27,18 +27,7 @@ app.controller('RosterController', ['$http', 'DataFactory', '$scope', function($
     }
   }
 
-  // console.log('self.currentUser: ', self.currentUser);
-  // checkInfo();
-
-  // function checkInfo () {
-  //   console.log('self.loggedIn: ', self.loggedIn);
-  //   if (self.loggedIn == true) {
-  //     console.log('self.currentUser.email: ', self.currentUser.email);
-  //   }
-  // }
-
   self.addPlayer = DataFactory.addPlayer();
-
 
   // self.addPlayer = function() {
   //   if(self.loggedIn == true) {
@@ -59,13 +48,16 @@ app.controller('RosterController', ['$http', 'DataFactory', '$scope', function($
   //   }
   // }
 
-  self.deletePlayer = function(player) {
-    console.log('deleting player: ', player);
-    $http.delete('/roster/' + player.id)
-      .then(function(response) {
-        console.log('DELETE finished. getPlayers(); again.');
-        getPlayers();
-      });
-  }
+  self.deletePlayer = DataFactory.deletePlayer();
+
+
+  // self.deletePlayer = function(player) {
+  //   console.log('deleting player: ', player);
+  //   $http.delete('/roster/' + player.id)
+  //     .then(function(response) {
+  //       console.log('DELETE finished. getPlayers(); again.');
+  //       getPlayers();
+  //     });
+  // }
 
 }]);

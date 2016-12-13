@@ -41,11 +41,9 @@ router.post('/', function(req, res) {
       res.sendStatus(500);
     }
     client.query(
-      //figure out how to fix this query after the factory is up
       'INSERT INTO players (player_first_name, player_last_name, user_id) ' +
       'VALUES ($1, $2, $3)',
       [playerFirstName, playerLastName, user_id],
-      // [newPlayer.first_name, newPlayer.last_name, 1],
       function(err, result) {
         done();
         if(err) {
@@ -58,8 +56,9 @@ router.post('/', function(req, res) {
     });
   });
 
-  router.delete('/:id', function(req, res) {
-    playerID = req.params.id;
+  router.delete('/', function(req, res) {
+    console.log('req.body: ', req.body);
+    playerID = req.body;
     console.log('player id to delete: ', playerID);
     pg.connect(connectionString, function(err, client, done) {
       if(err) {
