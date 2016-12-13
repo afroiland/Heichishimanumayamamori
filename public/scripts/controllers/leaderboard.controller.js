@@ -1,5 +1,5 @@
 app.controller('LeaderboardController', ["$http", function($http) {
-  console.log('leaderboard controller running');
+  // console.log('leaderboard controller running');
   var self = this;
   self.users = [];
 

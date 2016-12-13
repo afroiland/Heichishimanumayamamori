@@ -81,7 +81,9 @@ app.factory('DataFactory', ['$firebaseAuth', '$http', function($firebaseAuth, $h
   // });
 
   function getPlayers() {
+
     if(currentUser) {
+      console.log('get players?');
       // logged in
       return currentUser.getToken().then(   //firebase getting idToken
         function(idToken) {
@@ -94,7 +96,7 @@ app.factory('DataFactory', ['$firebaseAuth', '$http', function($firebaseAuth, $h
             }
           }).then(function(response) {
             players = response.data;
-            // console.log('Factory getPlayers: ', players);
+            console.log('Factory getPlayers: ', players);
             // return players;
           },
           function(response) {
@@ -128,10 +130,12 @@ app.factory('DataFactory', ['$firebaseAuth', '$http', function($firebaseAuth, $h
                 id_token: idToken
               }
             }).then(function(response) {
-              console.log('please be a number: ', response.data[0].count);
+              // console.log('please be a number: ', response.data[0].count);
               if(response.data[0].count >= 8) {
                 alert('You may only have eight players in your roster. Delete players to make room.');
               } else {
+
+
                 $http({
                   method: 'POST',
                   url: '/roster',
@@ -145,6 +149,8 @@ app.factory('DataFactory', ['$firebaseAuth', '$http', function($firebaseAuth, $h
                   console.log('added player, getting players again');
                   getPlayers();
                 });
+
+
               }
             });
           });

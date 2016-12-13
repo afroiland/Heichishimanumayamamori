@@ -1,5 +1,5 @@
 app.controller('RosterController', ['$http', 'DataFactory', '$scope', function($http, DataFactory, $scope) {
-  console.log('roster controller running');
+  // console.log('roster controller running');
   var self = this;
   self.newPlayer = DataFactory.newPlayer();
   self.players = [];
