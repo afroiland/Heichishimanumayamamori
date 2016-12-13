@@ -41,9 +41,9 @@ router.post('/', function(req, res) {
       res.sendStatus(500);
     }
     client.query(
-      'INSERT INTO players (player_first_name, player_last_name, user_id) ' +
-      'VALUES ($1, $2, $3)',
-      [playerFirstName, playerLastName, user_id],
+      'INSERT INTO players (player_first_name, player_last_name, tourney_points, user_id) ' +
+      'VALUES ($1, $2, $3, $4)',
+      [playerFirstName, playerLastName, 0, user_id],
       function(err, result) {
         done();
         if(err) {
@@ -56,9 +56,9 @@ router.post('/', function(req, res) {
     });
   });
 
-  router.delete('/', function(req, res) {
-    console.log('req.body: ', req.body);
-    playerID = req.body;
+  router.delete('/:id', function(req, res) {
+    console.log('req.params: ', req.params);
+    playerID = req.params.id;
     console.log('player id to delete: ', playerID);
     pg.connect(connectionString, function(err, client, done) {
       if(err) {
@@ -71,7 +71,7 @@ router.post('/', function(req, res) {
         function(err, result) {
           done();
           if(err) {
-            res.sendStatus(500);
+            res.sendStatus(501);
           } else {
             res.sendStatus(200);
           }

@@ -14,12 +14,12 @@ app.factory('DataFactory', ['$firebaseAuth', '$http', function($firebaseAuth, $h
       console.log("Firebase Authenticated as: ", firebaseUser.user.displayName);
       console.log('firebaseUser.user.email: ', firebaseUser.user.email);
       currentUser = firebaseUser.user;
-      console.log('currentUser: ', currentUser);
+      // console.log('currentUser: ', currentUser);
       loggedIn = true;
       //Adding new user to db
       $http.get('/login')
         .then(function(response) {
-          console.log('login response.data: ', response.data);
+          // console.log('login response.data: ', response.data);
           users = response.data;
         }).then(function() {
       for (var i = 0; i < users.length; i++) {
@@ -141,21 +141,18 @@ app.factory('DataFactory', ['$firebaseAuth', '$http', function($firebaseAuth, $h
   }
 
   function deletePlayer(player_param) {
-    console.log('player_param: ', player_param);
+    // console.log('player_param: ', player_param);
     if (currentUser) {
       return currentUser.getToken().then(
         function(idToken) {
           $http({
             method: 'DELETE',
-            url: '/roster',
+            url: '/roster/' + player_param.id,
             headers: {
               id_token: idToken
             },
-            data: {
-              player_to_delete: player_param
-            }
           }).then(function (response) {
-            console.log('deleted player: ', thing);
+            console.log('deleted player id: ', player_param.id);
             getPlayers();
         });
       });

@@ -15,7 +15,7 @@ router.get('/', function(req, res) {
           console.log('Error: ', err);
           res.sendStatus(500);
         } else{
-          console.log('results.rows: ', result.rows);
+          // console.log('results.rows: ', result.rows);
           res.send(result.rows);
         }
       });
