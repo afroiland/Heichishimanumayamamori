@@ -71,7 +71,7 @@ router.post('/', function(req, res) {
         function(err, result) {
           done();
           if(err) {
-            res.sendStatus(501);
+            res.sendStatus(500);
           } else {
             res.sendStatus(200);
           }
@@ -79,5 +79,26 @@ router.post('/', function(req, res) {
       });
     });
 
+router.get('/check/', function(req, res) {
+  // console.log('another req.userId: ', req.userId);
+  pg.connect(connectionString, function(err, client, done) {
+    if(err) {
+      console.log('connection error: ', err);
+      res.sendStatus(500);
+    }
+    client.query(
+      'SELECT COUNT(user_id) FROM players WHERE user_id = $1',
+      [req.userId],
+      function(err, result) {
+        done();
+        if(err) {
+          res.sendStatus(500);
+        } else {
+          console.log('another result.rows: ', result.rows);
+          res.send(result.rows);
+        }
+    });
+  });
+});
 
-    module.exports = router;
+module.exports = router;

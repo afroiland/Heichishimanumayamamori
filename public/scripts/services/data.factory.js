@@ -18,18 +18,18 @@ app.factory('DataFactory', ['$firebaseAuth', '$http', function($firebaseAuth, $h
       loggedIn = true;
       //Adding new user to db
       $http.get('/login')
-        .then(function(response) {
-          // console.log('login response.data: ', response.data);
-          users = response.data;
-        }).then(function() {
-      for (var i = 0; i < users.length; i++) {
-        if(currentUser.email == users[i].email) {
-          emailInDatabase = true;
+      .then(function(response) {
+        // console.log('login response.data: ', response.data);
+        users = response.data;
+      }).then(function() {
+        for (var i = 0; i < users.length; i++) {
+          if(currentUser.email == users[i].email) {
+            emailInDatabase = true;
+          }
         }
-      }
-      if (emailInDatabase == false) {
-        console.log('trying to add currentUser: ', currentUser);
-        $http.post('/login', currentUser)
+        if (emailInDatabase == false) {
+          console.log('trying to add currentUser: ', currentUser);
+          $http.post('/login', currentUser)
           .then(function(response) {
             console.log('added user to db:');
           })
@@ -97,105 +97,118 @@ app.factory('DataFactory', ['$firebaseAuth', '$http', function($firebaseAuth, $h
             // console.log('Factory getPlayers: ', players);
             // return players;
           },
-            function(response) {
-              console.log('factory get error response: ', response);
-              // didn't work
-              players = undefined;
-            });
+          function(response) {
+            console.log('factory get error response: ', response);
+            // didn't work
+            players = undefined;
+          });
         });
-    } else {
-      console.log('factory get players not logged in.');
-      currentUser = undefined;
-    }
+      } else {
+        console.log('factory get players not logged in.');
+        currentUser = undefined;
+      }
 
       // previous, no token sent
-    // $http.get('/roster').then(function(response) {
-    //   // console.log('response.data: ', response.data);
-    //   players = response.data;
-    // });
-    // players = undefined;
-  }
-
-  function addPlayer(test) {
-    console.log('factory adding player');
-    if (currentUser) {
-      return currentUser.getToken().then(
-        function(idToken) {
-          $http({
-            method: 'POST',
-            url: '/roster',
-            headers: {
-              id_token: idToken
-            },
-            data: {
-              new_player: test
-            }
-          }).then(function(response) {
-            console.log('added player, getting players again');
-            getPlayers();
-        });
-      });
-    } else {
-      console.log('factory add player not logged in');
-      alert('You must be logged in to add a player to your roster.')
+      // $http.get('/roster').then(function(response) {
+      //   // console.log('response.data: ', response.data);
+      //   players = response.data;
+      // });
+      // players = undefined;
     }
-  }
 
-  function deletePlayer(player_param) {
-    // console.log('player_param: ', player_param);
-    if (currentUser) {
-      return currentUser.getToken().then(
-        function(idToken) {
-          $http({
-            method: 'DELETE',
-            url: '/roster/' + player_param.id,
-            headers: {
-              id_token: idToken
-            },
-          }).then(function (response) {
-            console.log('deleted player id: ', player_param.id);
-            getPlayers();
-        });
-      });
-    } else {
-      console.log('factory add player not logged in');
-    }
-  }
+    function addPlayer(test) {
+      console.log('factory adding player');
+      if (currentUser) {
+        return currentUser.getToken().then(
+          function(idToken) {
+            $http({
+              method: 'GET',
+              url: '/roster/check',
+              headers: {
+                id_token: idToken
+              }
+            }).then(function(response) {
+              console.log('please be a number: ', response.data[0].count);
+              if(response.data[0].count >= 8) {
+                alert('You may only have eight players in your roster. Delete players to make room.');
+              } else {
+                $http({
+                  method: 'POST',
+                  url: '/roster',
+                  headers: {
+                    id_token: idToken
+                  },
+                  data: {
+                    new_player: test
+                  }
+                }).then(function(response) {
+                  console.log('added player, getting players again');
+                  getPlayers();
+                });
+              }
+            });
+          });
+        } else {
+          // console.log('factory add player not logged in');
+          alert('You must be logged in to add a player to your roster.')
+        }
+      }
 
-  var publicApi = {
-    logIn: function() {
-      return logIn();
-    },
-    logOut: function() {
-      return logOut();
-    },
-    // stateChanged: function() {
-    //   return stateChanged();
-    // },
-    getPlayers: function() {
-      return getPlayers();
-    },
-    playerData: function() {
-      // console.log('factory players is:', players);
-      return players;
-    },
-    addPlayer: function() {
-      return addPlayer;
-    },
-    currentUser: function() {
-      return getCurrentUser();
-    },
-    loggedIn: function() {
-      return getUserStatus();
-    },
-    newPlayer: function() {
-      return newPlayer;
-    },
-    deletePlayer: function() {
-      return deletePlayer;
-    }
-  };
+      function deletePlayer(player_param) {
+        // console.log('player_param: ', player_param);
+        if (currentUser) {
+          return currentUser.getToken().then(
+            function(idToken) {
+              $http({
+                method: 'DELETE',
+                url: '/roster/' + player_param.id,
+                headers: {
+                  id_token: idToken
+                },
+              }).then(function (response) {
+                console.log('deleted player id: ', player_param.id);
+                getPlayers();
+              });
+            });
+          } else {
+            console.log('factory add player not logged in');
+          }
+        }
 
-  return publicApi;
+        var publicApi = {
+          logIn: function() {
+            return logIn();
+          },
+          logOut: function() {
+            return logOut();
+          },
+          // stateChanged: function() {
+          //   return stateChanged();
+          // },
+          getPlayers: function() {
+            return getPlayers();
+          },
+          playerData: function() {
+            // console.log('factory players is:', players);
+            return players;
+          },
+          addPlayer: function() {
+            return addPlayer;
+          },
+          currentUser: function() {
+            return getCurrentUser();
+          },
+          loggedIn: function() {
+            return getUserStatus();
+          },
+          newPlayer: function() {
+            return newPlayer;
+          },
+          deletePlayer: function() {
+            return deletePlayer;
+          }
+        };
 
-}]);
+        return publicApi;
+
+      }]);
