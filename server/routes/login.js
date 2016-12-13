@@ -26,14 +26,15 @@ router.get('/', function(req, res) {
 router.post('/', function(req, res) {
   var newUser = req.body;
   console.log('newUser: ', newUser);
-  //split first and last names here
+  var firstName = newUser.displayName.split(' ')[0];
+  var lastName = newUser.displayName.split(' ').slice(-1).join(' ');
   pg.connect(connectionString, function(err, client, done) {
     if(err) {
       console.log('connection error: ', err);
       res.sendStatus(500);
     }
     client.query('INSERT INTO users (first_name, last_name, email, clearance_level) VALUES ($1, $2, $3, $4)',
-    [newUser.first_name, newUser.last_name, newUser.email, 1],
+    [firstName, lastName, newUser.email, 1],
     function(err, result) {
       done();
       if(err) {
