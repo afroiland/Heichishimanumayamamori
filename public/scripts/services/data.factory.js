@@ -16,28 +16,25 @@ app.factory('DataFactory', ['$firebaseAuth', '$http', function($firebaseAuth, $h
       currentUser = firebaseUser.user;
       console.log('currentUser: ', currentUser);
       loggedIn = true;
-
-      // //Trying to add new user to db
-      // $http.get('/login')
-      //   .then(function(response) {
-      //     console.log('login response.data: ', response.data);
-      //     users = response.data;
-      //   });
-      // for (var i = 0; i < users.length; i++) {
-      //   if(currentUser.email == users[i].email) {
-      //     emailInDatabase = true;
-      //   }
-      // }
-      // if (emailInDatabase == false) {
-      //   console.log('trying to add currentUser: ', currentUser);
-      //   $http.post('/login', currentUser)
-      //     .then(function(response) {
-      //       console.log('added user to db:');
-      //     })
-      // }
-
-
-
+      //Adding new user to db
+      $http.get('/login')
+        .then(function(response) {
+          console.log('login response.data: ', response.data);
+          users = response.data;
+        }).then(function() {
+      for (var i = 0; i < users.length; i++) {
+        if(currentUser.email == users[i].email) {
+          emailInDatabase = true;
+        }
+      }
+      if (emailInDatabase == false) {
+        console.log('trying to add currentUser: ', currentUser);
+        $http.post('/login', currentUser)
+          .then(function(response) {
+            console.log('added user to db:');
+          })
+        }
+      });
     }).catch(function(error) {
       console.log("Authentication failed: ", error);
     });
@@ -87,7 +84,7 @@ app.factory('DataFactory', ['$firebaseAuth', '$http', function($firebaseAuth, $h
     if(currentUser) {
       // logged in
       return currentUser.getToken().then(   //firebase getting idToken
-        function(idToken){
+        function(idToken) {
           // console.log('idToken: ', idToken);
           return $http({
             method: 'GET',
@@ -95,7 +92,7 @@ app.factory('DataFactory', ['$firebaseAuth', '$http', function($firebaseAuth, $h
             headers: {
               id_token: idToken
             }
-          }).then(function(response){
+          }).then(function(response) {
             players = response.data;
             // console.log('Factory getPlayers: ', players);
             // return players;
@@ -143,8 +140,8 @@ app.factory('DataFactory', ['$firebaseAuth', '$http', function($firebaseAuth, $h
     }
   }
 
-  function deletePlayer(thing) {
-    console.log('thing: ', thing);
+  function deletePlayer(player_param) {
+    console.log('player_param: ', player_param);
     if (currentUser) {
       return currentUser.getToken().then(
         function(idToken) {
@@ -155,7 +152,7 @@ app.factory('DataFactory', ['$firebaseAuth', '$http', function($firebaseAuth, $h
               id_token: idToken
             },
             data: {
-              key: 'thing'
+              player_to_delete: player_param
             }
           }).then(function (response) {
             console.log('deleted player: ', thing);

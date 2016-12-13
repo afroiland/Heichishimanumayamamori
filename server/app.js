@@ -21,12 +21,12 @@ app.get('/', function(req, res) {
   res.sendFile(path.join(__dirname, '../public/views/index.html'));
 });
 
+app.use('/login', login);
 app.use('/leaderboard', leaderboard);
 app.use('/about', about);
 
 app.use(decoder.token);
 
-app.use('/login', login);
 app.use('/roster', roster);
 app.use('/admin', admin);
 app.use('/privateData', privateData);
