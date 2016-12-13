@@ -26,15 +26,15 @@ app.controller('AdminController', ['$http', 'DataFactory', function($http, DataF
 
   self.updatePoints = function(player) {
     console.log('self.currentUser: ', self.currentUser);
-    // if(self.currentUser.email == 'andrew.froiland@gmail.com') {
-      // console.log('updating player points for: ', player);
+    if(self.currentUser.email == 'andrew.froiland@gmail.com') {
+      console.log('updating player points for: ', player);
       $http.put('/admin/' + player.id, player)
         .then(function(response) {
           console.log('updated points for', player.player_first_name + ' ' + player.player_last_name);
       });
-    // } else {
-    //   alert('Not authorized');
-    // }
+    } else {
+      alert('Not authorized');
+    }
   }
 
 }]);

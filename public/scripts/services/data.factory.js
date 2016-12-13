@@ -137,6 +137,7 @@ app.factory('DataFactory', ['$firebaseAuth', '$http', function($firebaseAuth, $h
       });
     } else {
       console.log('factory add player not logged in');
+      alert('You must be logged in to add a player to your roster.')
     }
   }
 
@@ -160,7 +161,6 @@ app.factory('DataFactory', ['$firebaseAuth', '$http', function($firebaseAuth, $h
       console.log('factory add player not logged in');
     }
   }
-
 
   var publicApi = {
     logIn: function() {
