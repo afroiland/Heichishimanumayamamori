@@ -8,6 +8,7 @@ app.factory('DataFactory', ['$firebaseAuth', '$http', function($firebaseAuth, $h
   var loggedIn = false;
   var players = undefined;
   var newPlayer = undefined;
+  var goodToGo = true;
 
   function logIn() {
     return auth.$signInWithPopup("google").then(function(firebaseUser) {
@@ -145,7 +146,11 @@ app.factory('DataFactory', ['$firebaseAuth', '$http', function($firebaseAuth, $h
                   for (var i = 0; i < response.data.length; i++) {
                     if(response.data[i].player_first_name == test.player_first_name && response.data[i].player_last_name == test.player_last_name) {
                       alert('Another user has already selected this player. Make another selection.');
-                  } else {
+                      goodToGo = false;
+                    }
+                  }
+                  console.log('goodToGo: ', goodToGo);
+                  if(goodToGo == true) {
                     $http({
                       method: 'POST',
                       url: '/roster',
@@ -157,14 +162,14 @@ app.factory('DataFactory', ['$firebaseAuth', '$http', function($firebaseAuth, $h
                       }
                     }).then(function(response) {
                       console.log('added player, getting players again');
+                      goodToGo = false;
                       getPlayers();
-
                     });
-                    }
+                  } else {
+                    goodToGo = true;
                   }
-                }
-              });
-
+                }); //
+              }
             });
           });
         } else {
