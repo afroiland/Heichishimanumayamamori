@@ -101,4 +101,24 @@ router.get('/check/', function(req, res) {
   });
 });
 
+router.get('/checkAgain/', function(req, res) {
+  pg.connect(connectionString, function(err, client, done) {
+    if(err) {
+      console.log('connection error: ', err);
+      res.sendStatus(500);
+    }
+    client.query(
+      'SELECT * FROM players',
+      function(err, result) {
+      done();
+      if(err) {
+        res.sendStatus(500);
+      } else {
+        // console.log('again result.rows: ', result.rows);
+        res.send(result.rows);
+      }
+    });
+  });
+});
+
 module.exports = router;

@@ -134,24 +134,37 @@ app.factory('DataFactory', ['$firebaseAuth', '$http', function($firebaseAuth, $h
               if(response.data[0].count >= 8) {
                 alert('You may only have eight players in your roster. Delete players to make room.');
               } else {
-
-
                 $http({
-                  method: 'POST',
-                  url: '/roster',
+                  method: 'GET',
+                  url: '/roster/checkAgain',
                   headers: {
                     id_token: idToken
-                  },
-                  data: {
-                    new_player: test
                   }
+
                 }).then(function(response) {
-                  console.log('added player, getting players again');
-                  getPlayers();
-                });
+                  for (var i = 0; i < response.data.length; i++) {
+                    if(response.data[i].player_first_name == test.player_first_name && response.data[i].player_last_name == test.player_last_name) {
+                      alert('Another user has already selected this player. Make another selection.');
+                  } else {
+                    $http({
+                      method: 'POST',
+                      url: '/roster',
+                      headers: {
+                        id_token: idToken
+                      },
+                      data: {
+                        new_player: test
+                      }
+                    }).then(function(response) {
+                      console.log('added player, getting players again');
+                      getPlayers();
 
+                    });
+                    }
+                  }
+                }
+              });
 
-              }
             });
           });
         } else {
