@@ -34,8 +34,10 @@ app.controller('RosterController', ['$http', 'DataFactory', '$scope', function($
   // };
 
   self.addPlayer = function(test) {
+    console.log('sending thing to factory');
     self.placeholder(test).then(function() {
       console.log('trying to add player pt1');
+      
       getPlayers();
       // self.newPlayer.player_first_name = ' ';
       // self.newPlayer.player_last_name = ' ';

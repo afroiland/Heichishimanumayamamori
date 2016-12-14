@@ -1,4 +1,4 @@
-app.factory('DataFactory', ['$firebaseAuth', '$http', function($firebaseAuth, $http) {
+app.factory('DataFactory', ['$firebaseAuth', '$http', '$q', function($firebaseAuth, $http, $q) {
   // console.log("factory running");
 
   var auth = $firebaseAuth();
@@ -109,17 +109,11 @@ app.factory('DataFactory', ['$firebaseAuth', '$http', function($firebaseAuth, $h
         console.log('factory get players not logged in.');
         currentUser = undefined;
       }
-
-      // previous, no token sent
-      // $http.get('/roster').then(function(response) {
-      //   // console.log('response.data: ', response.data);
-      //   players = response.data;
-      // });
-      // players = undefined;
     }
 
     function addPlayer(test) {
       console.log('factory adding player');
+      var deferred = $q.defer();
       if (currentUser) {
         return currentUser.getToken().then(
           function(idToken) {
@@ -160,7 +154,7 @@ app.factory('DataFactory', ['$firebaseAuth', '$http', function($firebaseAuth, $h
                       }
                     }).then(function(response) {
                       console.log('added player, getting players again');
-                      // getPlayers();
+                      deferred.resolve(response);
                     });
                   } else {
                     goodToGo = true;
@@ -173,6 +167,7 @@ app.factory('DataFactory', ['$firebaseAuth', '$http', function($firebaseAuth, $h
           // console.log('factory add player not logged in');
           alert('You must be logged in to add a player to your roster.')
         }
+        return deferred.promise;
       }
 
       function deletePlayer(player_param) {
@@ -188,7 +183,6 @@ app.factory('DataFactory', ['$firebaseAuth', '$http', function($firebaseAuth, $h
                 },
               }).then(function (response) {
                 console.log('deleted player id: ', player_param.id);
-                // getPlayers();
               });
             });
           } else {
