@@ -82,7 +82,6 @@ app.factory('DataFactory', ['$firebaseAuth', '$http', function($firebaseAuth, $h
   // });
 
   function getPlayers() {
-
     if(currentUser) {
       console.log('get players?');
       // logged in
@@ -98,7 +97,7 @@ app.factory('DataFactory', ['$firebaseAuth', '$http', function($firebaseAuth, $h
           }).then(function(response) {
             players = response.data;
             console.log('Factory getPlayers: ', players);
-            // return players;
+            return players;
           },
           function(response) {
             console.log('factory get error response: ', response);
@@ -141,7 +140,6 @@ app.factory('DataFactory', ['$firebaseAuth', '$http', function($firebaseAuth, $h
                   headers: {
                     id_token: idToken
                   }
-
                 }).then(function(response) {
                   for (var i = 0; i < response.data.length; i++) {
                     if(response.data[i].player_first_name == test.player_first_name && response.data[i].player_last_name == test.player_last_name) {
@@ -149,7 +147,7 @@ app.factory('DataFactory', ['$firebaseAuth', '$http', function($firebaseAuth, $h
                       goodToGo = false;
                     }
                   }
-                  console.log('goodToGo: ', goodToGo);
+                  // console.log('goodToGo: ', goodToGo);
                   if(goodToGo == true) {
                     $http({
                       method: 'POST',
@@ -162,13 +160,12 @@ app.factory('DataFactory', ['$firebaseAuth', '$http', function($firebaseAuth, $h
                       }
                     }).then(function(response) {
                       console.log('added player, getting players again');
-                      goodToGo = false;
-                      getPlayers();
+                      // getPlayers();
                     });
                   } else {
                     goodToGo = true;
                   }
-                }); //
+                });
               }
             });
           });
@@ -191,7 +188,7 @@ app.factory('DataFactory', ['$firebaseAuth', '$http', function($firebaseAuth, $h
                 },
               }).then(function (response) {
                 console.log('deleted player id: ', player_param.id);
-                getPlayers();
+                // getPlayers();
               });
             });
           } else {
