@@ -9,7 +9,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="user in leaderboard.users | orderBy:'-sum'">
+    <tr ng-repeat="user in leaderboard.users">
       <td class="tableElement" name="username">{{user.first_name}} {{user.last_name}}</td>
       <td class="tableElement" name="user_points">{{user.sum}}</td>
     </tr>
