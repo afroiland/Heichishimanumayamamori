@@ -32,6 +32,7 @@ app.controller('AdminController', ['$http', 'DataFactory', function($http, DataF
         .then(function(response) {
           console.log('updated points for', player.player_first_name + ' ' + player.player_last_name);
       });
+      // self.selectedPlayer.new_point_total = ' ';     //not working as is
     } else {
       alert('Not authorized');
     }

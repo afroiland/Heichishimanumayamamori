@@ -174,6 +174,7 @@ app.factory('DataFactory', ['$firebaseAuth', '$http', '$q', function($firebaseAu
 
       function deletePlayer(player_param) {
         // console.log('player_param: ', player_param);
+        var deferred = $q.defer();
         if (currentUser) {
           return currentUser.getToken().then(
             function(idToken) {
@@ -185,7 +186,9 @@ app.factory('DataFactory', ['$firebaseAuth', '$http', '$q', function($firebaseAu
                 },
               }).then(function (response) {
                 console.log('deleted player id: ', player_param.id);
+                deferred.resolve();
               });
+              return deferred.promise
             });
           } else {
             console.log('factory add player not logged in');

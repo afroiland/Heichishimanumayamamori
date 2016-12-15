@@ -29,22 +29,14 @@ app.controller('RosterController', ['$http', 'DataFactory', '$scope', function($
 
   self.placeholder = DataFactory.addPlayer();
 
-  // self.addPlayer = function(test) {
-  //   self.placeholder(test).then(getPlayers);
-  // };
-
   self.addPlayer = function(test) {
     console.log('sending thing to factory');
     self.placeholder(test).then(function() {
-      console.log('trying to add player pt1');
       getPlayers();
-      // self.newPlayer.player_first_name = ' ';
-      // self.newPlayer.player_last_name = ' ';
-      console.log('trying to add player pt2');
+      self.newPlayer.player_first_name = ' ';
+      self.newPlayer.player_last_name = ' ';
     });
   };
-
-  // self.addPlayer = DataFactory.addPlayer();
 
   self.placeholder2 = DataFactory.deletePlayer();
 
