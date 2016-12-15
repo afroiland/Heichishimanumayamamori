@@ -154,7 +154,7 @@ app.factory('DataFactory', ['$firebaseAuth', '$http', '$q', function($firebaseAu
                       }
                     }).then(function(response) {
                       console.log('added player, getting players again');
-                      deferred.resolve(response);
+                      deferred.resolve();
                     });
                   } else {
                     goodToGo = true;
@@ -167,6 +167,7 @@ app.factory('DataFactory', ['$firebaseAuth', '$http', '$q', function($firebaseAu
           // console.log('factory add player not logged in');
           alert('You must be logged in to add a player to your roster.')
         }
+        console.log('deferred promise should be returned here?');
         return deferred.promise;
       }
 

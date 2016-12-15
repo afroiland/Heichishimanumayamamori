@@ -37,7 +37,7 @@ var tokenDecoder = function(req, res, next){
           } else {
           // res.send(result.rows);
           req.userId = result.rows[0].id;
-          console.log('userId: ', req.userId);
+          // console.log('userId: ', req.userId);
           // console.log('result.rows: ', result.rows);
           // console.log('decodedToken: ', decodedToken);
           req.decodedToken = decodedToken;

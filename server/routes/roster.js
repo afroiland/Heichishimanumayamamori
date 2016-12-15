@@ -11,7 +11,7 @@ router.get('/', function(req, res) {
       res.sendStatus(500);
     } else {
       // console.log('req.decodedToken: ', req.decodedToken);
-      client.query('SELECT * FROM players WHERE user_id = $1',
+      client.query('SELECT * FROM players WHERE user_id = $1 ORDER BY id ASC',
       [req.userId],
       function(err, result) {
         done();
@@ -94,7 +94,7 @@ router.get('/check/', function(req, res) {
         if(err) {
           res.sendStatus(500);
         } else {
-          console.log('another result.rows: ', result.rows);
+          // console.log('another result.rows: ', result.rows);
           res.send(result.rows);
         }
     });
