@@ -4,6 +4,7 @@ app.controller('AdminController', ['$http', 'DataFactory', function($http, DataF
 
   self.currentUser = DataFactory.currentUser();
   self.players = [];
+  self.selectedPlayer = {};
 
   // checkInfo();
   //
@@ -31,8 +32,9 @@ app.controller('AdminController', ['$http', 'DataFactory', function($http, DataF
       $http.put('/admin/' + player.id, player)
         .then(function(response) {
           console.log('updated points for', player.player_first_name + ' ' + player.player_last_name);
+          self.selectedPlayer.new_point_total = null;
       });
-      self.selectedPlayer.new_point_total = null;     //not working as is
+
     } else {
       alert('Not authorized');
     }

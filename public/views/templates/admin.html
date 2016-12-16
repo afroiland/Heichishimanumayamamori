@@ -1,10 +1,10 @@
 <form id="adminForm">
   <div class="form-group">
-    <select ng-model="selectedPlayer" ng-options="player.player_last_name for player in admin.players"></select>
+    <select ng-model="admin.selectedPlayer" ng-options="player.player_last_name for player in admin.players"></select>
   </div>
   <div class="form-group">
     <label for="new_point_total">New Point Total</label>
     <input type="number" ng-model="admin.selectedPlayer.new_point_total" name="new_point_total" class="form-control" />
   </div>
-  <button class="btn btn-default" ng-click="admin.updatePoints(selectedPlayer)">Update</button>
+  <button class="btn btn-default" ng-click="admin.updatePoints(admin.selectedPlayer)">Update</button>
 </form>
