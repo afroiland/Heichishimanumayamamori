@@ -4,7 +4,7 @@ app.controller('AdminController', ['$http', 'DataFactory', function($http, DataF
 
   self.currentUser = DataFactory.currentUser();
   self.players = [];
-  self.selectedPlayer = {};
+  // self.selectedPlayer = {};
 
   // checkInfo();
   //

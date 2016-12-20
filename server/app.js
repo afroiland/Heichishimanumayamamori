@@ -37,6 +37,6 @@ app.get('/home', function(req, res) {
 
 pgConnection.connect();
 
-app.listen(app.get("port"), function(){
+app.listen(app.get("port"), function() {
   console.log("Server up and running on Port", port);
 });
