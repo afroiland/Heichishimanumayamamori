@@ -23,6 +23,8 @@ body {
 }
 
 h1 {
+  /*font-family: "wire one";*/
+  background-color: black;
   font-size: 285%;
   text-shadow:
     -1px -1px 0 #000,
@@ -41,4 +43,41 @@ h2 {
 
 .login {
   background-color: black;
+}
+
+#leaderboard {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#roster {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#newPlayerEntry {
+  display: inline-flex;
+}
+
+#adminForm {
+  display: inline-block;
+  color: white;
+}
+
+#navMenu {
+  padding: 24px;
+}
+
+#navMenu > a {
+  font-size: 30px;
+  background-color: black;
+  padding: 12px 24px;
+  margin-right: 10px;
+  border-radius: 3px;
+  text-decoration: none;
+  transition: background 0.5s linear 0s, color 0.5s linear 0s;
+}
+
+#navMenu > a:hover {
+  background: white;
 }
