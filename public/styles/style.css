@@ -14,16 +14,16 @@
 
 body {
   font-family: "wire one";
-  /*text-align: center;*/
+  text-align: center;
   font-size: 35px;
-  background-image: url("../assets/starfield.jpg");
+  background-image: url("../assets/verticalblackmarble.png");
   /*background-color: black;*/
   image-resolution: snap;
   color: white;
 }
 
 h1 {
-  font-size: 320%;
+  font-size: 285%;
   text-shadow:
     -1px -1px 0 #000,
     1px -1px 0 #000,
@@ -33,4 +33,12 @@ h1 {
 
 h2 {
   font-size: 150%;
+}
+
+.row {
+  margin-left: 1px;
+}
+
+.login {
+  background-color: black;
 }
