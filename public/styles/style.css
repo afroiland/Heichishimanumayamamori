@@ -13,6 +13,7 @@
 }
 
 body {
+  /*width: 100%;*/
   font-family: "wire one";
   text-align: center;
   font-size: 35px;
@@ -43,6 +44,15 @@ h2 {
 
 .login {
   background-color: black;
+  height: 200px;
+  width: 200px;
+  margin: 30px;
+  transition: background 0.5s linear 0s, color 0.5s linear 0s;
+}
+
+.login:hover {
+  background-color: white;
+  color: black;
 }
 
 #leaderboard {
@@ -80,4 +90,12 @@ h2 {
 
 #navMenu > a:hover {
   background: white;
+}
+
+.form-group {
+  margin: 15px;
+}
+
+#addPlayerButton {
+  margin: 15px;
 }

@@ -21,7 +21,7 @@ router.get('/players', function(req, res) {
   });
 });
 
-router. put('/:id', function(req, res) {
+router.put('/:id', function(req, res) {
   playerID = req.params.id;
   player = req.body;
   // console.log('playerID: ', playerID);

@@ -40,4 +40,12 @@ app.controller('AdminController', ['$http', 'DataFactory', function($http, DataF
     }
   }
 
+  self.runIt = function() {
+    console.log();
+
+    //$http.get('/mtgjson')
+      // .then
+  }
+
+
 }]);
