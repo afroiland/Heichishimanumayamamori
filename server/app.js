@@ -10,6 +10,7 @@ var leaderboard = require('./routes/leaderboard');
 var about = require('./routes/about');
 var admin = require('./routes/admin');
 var login = require('./routes/login');
+var mtgjson = require('./routes/mtgjson');
 var port = 3000;
 
 app.set("port", (process.env.PORT || port));
@@ -25,6 +26,7 @@ app.use('/login', login);
 app.use('/leaderboard', leaderboard);
 app.use('/about', about);
 app.use('/admin', admin);
+// app.use('/mtgjson', mtgjson);
 
 app.use(decoder.token);
 
