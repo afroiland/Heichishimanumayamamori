@@ -3,7 +3,8 @@ var router = express.Router();
 var pg = require('pg');
 var connectionString = 'postgres://localhost:5432/sigma';
 
-
+var selectedPlayers = [];
+var playersWithNewScore = [];
 
 
 var all = {"url":"http://magic.wizards.com/en/events/coverage/gpmil16/final-standings-2016-12-11","result":{"extractorData":{"url":"http://magic.wizards.com/en/events/coverage/gpmil16/final-standings-2016-12-11","resourceId":"46961cea6c7ced0a0e315c3f562fedb8","data":[{"group":[{"Player_Name":[{"text":"Carter, Steven [US]"}],"Match_Points":[{"text":"40"}]},
@@ -42,7 +43,20 @@ router.get('/', function(req, res) {
         console.log('select query error: ', err);
         res.sendStatus(500);
       }
-      res.send(result.rows);
+      selectedPlayers = result.rows;
+      console.log('selectedPlayers: ', selectedPlayers);
+
+      for(var i = 0; i < all.result.extractorData.data[0].group.length; i++) {
+        for (var j = 0; j < selectedPlayers.length; j++) {
+          if(selectedPlayers[j].player_first_name == all.result.extractorData.data[0].group[i].Player_Name[0].text.split(', ')[1].split(' ')[0] && selectedPlayers[j].player_last_name == all.result.extractorData.data[0].group[i].Player_Name[0].text.split(', ')[0]) {
+           console.log('success?', selectedPlayers[j].player_first_name);
+          }
+
+        }
+
+      }
+
+      // res.send(      );
     });
   });
 });

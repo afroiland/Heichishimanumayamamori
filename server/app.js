@@ -26,7 +26,7 @@ app.use('/login', login);
 app.use('/leaderboard', leaderboard);
 app.use('/about', about);
 app.use('/admin', admin);
-// app.use('/mtgjson', mtgjson);
+app.use('/mtgjson', mtgjson);
 
 app.use(decoder.token);
 

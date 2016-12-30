@@ -5,6 +5,7 @@ app.controller('AdminController', ['$http', 'DataFactory', function($http, DataF
   self.currentUser = DataFactory.currentUser();
   self.players = [];
   // self.selectedPlayer = {};
+  var playersWithNewPoints = [];
 
   // checkInfo();
   //
@@ -45,6 +46,8 @@ app.controller('AdminController', ['$http', 'DataFactory', function($http, DataF
     $http.get('/mtgjson')
       .then(function(response) {
         console.log('response.data from json: ', response.data);
+
+        // and then like a put request with new info from playersWithNewPoints
 
       });
   }
