@@ -1,4 +1,4 @@
-app.controller('AdminController', ['$http', 'DataFactory', function($http, DataFactory) {
+app.controller('AdminController', ['$http', 'DataFactory', '$q', function($http, DataFactory, $q) {
   // console.log('admin controller running');
   var self = this;
 
@@ -43,12 +43,16 @@ app.controller('AdminController', ['$http', 'DataFactory', function($http, DataF
 
   self.runIt = function() {
     console.log("running it");
+    var deferred = $q.defer();
     $http.get('/mtgjson')
       .then(function(response) {
         console.log('response.data from json: ', response.data);
-
-        // and then like a put request with new info from playersWithNewPoints
-
+        deferred.resolve();
+        return deferred.promise;
+        $http.put('/mtgjson')
+          .then(function(response) {
+            console.log("json put request went through?");
+          });
       });
   }
 

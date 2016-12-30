@@ -37,7 +37,7 @@ router.get('/', function(req, res) {
       res.sendStatus(500);
     }
     client.query('SELECT * FROM players',
-      function (err, result) {
+    function (err, result) {
       done();
       if(err) {
         console.log('select query error: ', err);
@@ -48,9 +48,9 @@ router.get('/', function(req, res) {
       for(var i = 0; i < all.result.extractorData.data[0].group.length; i++) {
         for (var j = 0; j < selectedPlayers.length; j++) {
           if(selectedPlayers[j].player_first_name == all.result.extractorData.data[0].group[i].Player_Name[0].text.split(', ')[1].split(' ')[0] && selectedPlayers[j].player_last_name == all.result.extractorData.data[0].group[i].Player_Name[0].text.split(', ')[0]) {
-          //  console.log('success?', selectedPlayers[j].player_first_name);
-           playersWithNewScore.push({"player_first_name":selectedPlayers[j].player_first_name, "player_last_name":selectedPlayers[j].player_last_name, "newScore":all.result.extractorData.data[0].group[i].Match_Points[0].text});
-           console.log("playersWithNewScore: ", playersWithNewScore);
+            //  console.log('success?', selectedPlayers[j].player_first_name);
+            playersWithNewScore.push({"player_first_name":selectedPlayers[j].player_first_name, "player_last_name":selectedPlayers[j].player_last_name, "newScore":all.result.extractorData.data[0].group[i].Match_Points[0].text});
+            //  console.log("playersWithNewScore: ", playersWithNewScore);
           }
         }
       }
@@ -59,7 +59,27 @@ router.get('/', function(req, res) {
   });
 });
 
-
+router.put('/', function(req, res) {
+  console.log("(json put request) playersWithNewScore: ", playersWithNewScore);
+  for (var i = 0; i < playersWithNewScore.length; i++) {
+    pg.connect(connectionString, function(err, client, done) {
+      if(err) {
+        console.log('connection error: ', err);
+        res.sendStatus(500);
+      }
+      client.query('UPDATE players SET tourney_points=$1 WHERE player_first_name=$2 AND player_last_name=$3',
+      [playersWithNewScore[i].newScore, playersWithNewScore[i].player_first_name, playersWithNewScore[i].player_last_name],
+      function(err, result) {
+        if(err) {
+          console.log('update error: ', err);
+          res.sendStatus(500);
+        } else {
+          res.sendStatus(200);
+        }
+      });
+    });
+  }
+});
 
 
 module.exports = router;
