@@ -5,8 +5,27 @@
 }
 
 .roster {
-  display:inline-flex;
+  /*display:inline-flex;*/
 }
+
+#newPlayerEntry {
+  float: left;
+  margin-left: 50px;
+}
+
+#roster {
+  /*float: right;*/
+}
+
+.tableElement {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+/*#emptyTE {
+  border: none;
+  background-color: none;
+}*/
 
 #adminForm {
   color: black;
@@ -25,6 +44,7 @@ body {
 
 h1 {
   /*font-family: "wire one";*/
+  margin: 0px 0px 0px 0px;
   background-color: black;
   font-size: 285%;
   text-shadow:
@@ -36,6 +56,10 @@ h1 {
 
 h2 {
   font-size: 150%;
+}
+
+h3 {
+  margin: 0px;
 }
 
 .row {
@@ -83,9 +107,11 @@ h2 {
   font-size: 30px;
   background-color: black;
   padding: 12px 24px;
+  /*margin: 0px;*/
   margin-right: 10px;
   border-radius: 3px;
   text-decoration: none;
+  letter-spacing: 0.15em;
   transition: background 0.5s linear 0s, color 0.5s linear 0s;
 }
 
@@ -101,8 +127,18 @@ h2 {
   margin: 15px;
 }
 
-#aboutInfo {
+#instructions {
+  /*font-family: courier;*/
+  font-weight:lighter;
+  text-align: left;
+  letter-spacing: 0.1em;
   background-color: black;
-  margin-left: 40px;
-  margin-right: 40px;
+  margin-left: 190px;
+  margin-right: 190px;
+}
+
+#currentTourney {
+  background-color: black;
+  letter-spacing: 0.2em;
+  margin: 0px;
 }
