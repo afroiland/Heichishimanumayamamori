@@ -60,15 +60,18 @@ router.get('/', function(req, res) {
 });
 
 router.put('/', function(req, res) {
-  console.log("(json put request) playersWithNewScore: ", playersWithNewScore);
-  for (var i = 0; i < playersWithNewScore.length; i++) {
+  var list = req.body;
+  console.log('list: ', list);
+  // console.log("(json put request) playersWithNewScore: ", playersWithNewScore);
+  for (var i = 0; i < list.length; i++) {
+    console.log('list[i].newScore: ', list[i].newScore);
     pg.connect(connectionString, function(err, client, done) {
       if(err) {
         console.log('connection error: ', err);
         res.sendStatus(500);
       }
       client.query('UPDATE players SET tourney_points=$1 WHERE player_first_name=$2 AND player_last_name=$3',
-      [playersWithNewScore[i].newScore, playersWithNewScore[i].player_first_name, playersWithNewScore[i].player_last_name],
+      [list[i].newScore, list[i].player_first_name, list[i].player_last_name],
       function(err, result) {
         if(err) {
           console.log('update error: ', err);

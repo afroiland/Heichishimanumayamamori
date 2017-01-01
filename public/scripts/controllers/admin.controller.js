@@ -43,13 +43,15 @@ app.controller('AdminController', ['$http', 'DataFactory', '$q', function($http,
 
   self.runIt = function() {
     console.log("running it");
-    var deferred = $q.defer();
+    // var deferred = $q.defer();
     $http.get('/mtgjson')
       .then(function(response) {
         console.log('response.data from json: ', response.data);
-        deferred.resolve();
-        return deferred.promise;
-        $http.put('/mtgjson')
+        playersWithNewPoints = response.data;
+        console.log('playersWithNewPoints: ', playersWithNewPoints);
+        // deferred.resolve();
+        // return deferred.promise;
+        $http.put('/mtgjson', playersWithNewPoints)
           .then(function(response) {
             console.log("json put request went through?");
           });
