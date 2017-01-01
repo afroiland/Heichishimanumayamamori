@@ -1,4 +1,4 @@
-app.controller('AdminController', ['$http', 'DataFactory', '$q', function($http, DataFactory, $q) {
+app.controller('AdminController', ['$http', 'DataFactory', 'UpdateFactory', '$q', function($http, DataFactory, UpdateFactory, $q) {
   // console.log('admin controller running');
   var self = this;
 
@@ -43,7 +43,7 @@ app.controller('AdminController', ['$http', 'DataFactory', '$q', function($http,
 
   self.runIt = function() {
     console.log("running it");
-    // var deferred = $q.defer();
+    var deferred = $q.defer();
     $http.get('/mtgjson')
       .then(function(response) {
         console.log('response.data from json: ', response.data);

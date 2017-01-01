@@ -55,6 +55,7 @@ router.get('/', function(req, res) {
         }
       }
       res.send(playersWithNewScore);
+      console.log('sent data?');
     });
   });
 });
