@@ -1,37 +1,42 @@
+<div class="container" id="newPlayerEntry">
+  <div class="col-sm-6">
+  <h2 id="rosterHeader">Add Player to Roster</h2>
+  <form>
+    <div class="form-group">
+      <label for="first_name">First Name(s)</label>
+      <input type="text" ng-model="roster.newPlayer.player_first_name" name="first_name" class="form-control" />
+    </div>
+    <div class="form-group">
+      <label for="last_name">Last Name</label>
+      <input type="text" ng-model="roster.newPlayer.player_last_name" name="last_name" class="form-control" />
+    </div>
+    <button id="addPlayerButton" class="btn btn-default" ng-click="roster.addPlayer(roster.newPlayer)">Add</button>
+  </form>
+</div>
 
-<form id="newPlayerEntry">
-  <div class="form-group">
-    <label for="first_name">First Name(s)</label>
-    <input type="text" ng-model="roster.newPlayer.player_first_name" name="first_name" class="form-control" />
-  </div>
-  <div class="form-group">
-    <label for="last_name">Last Name</label>
-    <input type="text" ng-model="roster.newPlayer.player_last_name" name="last_name" class="form-control" />
-  </div>
-  <button id="addPlayerButton" class="btn btn-default" ng-click="roster.addPlayer(roster.newPlayer)">Add Player to Roster</button>
-</form>
 <!-- Roster: {{roster}}
 <p>
 Things: {{roster.things}}
 </p> -->
 <!-- <h2>User's Roster</h2> -->
 <!-- {{roster.players}} -->
-<div>
+<div class="col-sm-6">
   <table id="roster" class="tableElement">
-  <thead>
-    <tr>
-      <th class="tableElement">Player</th>
-      <th class="tableElement">Points</th>
-      <th class="tableElement" id="emptyTE"></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr ng-repeat="player in roster.players">
-      <td class="tableElement" name="player_name">{{player.player_first_name}} {{player.player_last_name}}</td>
-      <td class="tableElement" name="player_points">{{player.tourney_points}}</td>
-      <td><button ng-click="roster.deletePlayer(player)">Delete Player</button></td>
-    </tr>
-  </tbody>
-</table>
+    <thead>
+      <tr>
+        <th class="tableElement">Player</th>
+        <th class="tableElement">Points</th>
+        <th class="tableElement" id="emptyTE"></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr ng-repeat="player in roster.players">
+        <td class="tableElement" name="player_name">{{player.player_first_name}} {{player.player_last_name}}</td>
+        <td class="tableElement" name="player_points">{{player.tourney_points}}</td>
+        <td><button ng-click="roster.deletePlayer(player)">Delete Player</button></td>
+      </tr>
+    </tbody>
+  </table>
 
+</div>
 </div>

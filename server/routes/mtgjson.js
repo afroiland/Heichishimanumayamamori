@@ -63,9 +63,6 @@ router.get('/', function(req, res) {
 router.put('/', function(req, res) {
   var list = req.body;
   console.log('list: ', list);
-  // console.log("(json put request) playersWithNewScore: ", playersWithNewScore);
-  // for (var i = 0; i < list.length; i++) {
-    // console.log('list[i].newScore: ', list[i].newScore);
     pg.connect(connectionString, function(err, client, done) {
       if(err) {
         console.log('connection error: ', err);
@@ -83,7 +80,6 @@ router.put('/', function(req, res) {
         }
       });
     });
-  // }
 });
 
 

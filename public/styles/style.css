@@ -8,9 +8,18 @@
   /*display:inline-flex;*/
 }
 
+#rosterHeader {
+  text-align: center;
+}
+
 #newPlayerEntry {
-  float: left;
-  margin-left: 50px;
+  text-align: left;
+  /*float: left;*/
+  /*margin-left: 50px;*/
+}
+
+#addPlayerButton {
+
 }
 
 #roster {
@@ -56,6 +65,7 @@ h1 {
 
 h2 {
   font-size: 150%;
+  margin: 0px;
 }
 
 h3 {
