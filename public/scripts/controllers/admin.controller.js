@@ -1,4 +1,4 @@
-app.controller('AdminController', ['$http', 'DataFactory', 'UpdateFactory', '$q', function($http, DataFactory, UpdateFactory, $q) {
+app.controller('AdminController', ['$http', 'DataFactory', '$q', function($http, DataFactory, $q) {
   // console.log('admin controller running');
   var self = this;
 
@@ -31,9 +31,9 @@ app.controller('AdminController', ['$http', 'DataFactory', 'UpdateFactory', '$q'
     if(self.currentUser.email == 'andrew.froiland@gmail.com') {
       console.log('updating player points for: ', player);
       $http.put('/admin/' + player.id, player)
-        .then(function(response) {
-          console.log('updated points for', player.player_first_name + ' ' + player.player_last_name);
-          self.selectedPlayer.new_point_total = null;
+      .then(function(response) {
+        console.log('updated points for', player.player_first_name + ' ' + player.player_last_name);
+        self.selectedPlayer.new_point_total = null;
       });
 
     } else {
@@ -45,17 +45,19 @@ app.controller('AdminController', ['$http', 'DataFactory', 'UpdateFactory', '$q'
     console.log("running it");
     var deferred = $q.defer();
     $http.get('/mtgjson')
-      .then(function(response) {
-        console.log('response.data from json: ', response.data);
-        playersWithNewPoints = response.data;
-        console.log('playersWithNewPoints: ', playersWithNewPoints);
-        // deferred.resolve();
-        // return deferred.promise;
-        $http.put('/mtgjson', playersWithNewPoints)
-          .then(function(response) {
-            console.log("json put request went through?");
-          });
-      });
+    .then(function(response) {
+      console.log('response.data from json: ', response.data);
+      playersWithNewPoints = response.data;
+      console.log('playersWithNewPoints: ', playersWithNewPoints);
+      // deferred.resolve();
+      // return deferred.promise;
+      for (var i = 0; i < playersWithNewPoints.length; i++) {
+        $http.put('/mtgjson', playersWithNewPoints[i])
+        .then(function(response) {
+          console.log("json put request went through", i);
+        });
+      }
+    });
   }
 
 
