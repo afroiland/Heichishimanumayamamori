@@ -33,7 +33,7 @@ Things: {{roster.things}}
       <tr ng-repeat="player in roster.players">
         <td class="tableElement" name="player_name">{{player.player_first_name}} {{player.player_last_name}}</td>
         <td class="tableElement" name="player_points">{{player.tourney_points}}</td>
-        <td><button ng-click="roster.deletePlayer(player)">Delete Player</button></td>
+        <td><button class="deleteButton" ng-click="roster.deletePlayer(player)">Delete Player</button></td>
       </tr>
     </tbody>
   </table>

@@ -171,9 +171,30 @@ h3 {
 }
 
 #runIt {
+  color: white;
+  height: 200px;
+  width: 200px;
+  border-radius: 5px;
+  margin: 30px;
+  font-size: 20px;
+  font-weight: bold;
+  background-color: black;
+  transition: background 0.5s linear 0s, color 0.5s linear 0s;
+}
+
+#runIt:hover {
   background-color: red;
 }
 
 .form-control {
   font-family: arial;
+}
+
+.deleteButton {
+  color: black;
+}
+
+#playerSelect {
+  font-family: arial;
+  color: black;
 }
