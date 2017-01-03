@@ -104,7 +104,7 @@ h3 {
 }
 
 #adminForm {
-  display: inline-block;
+  /*display: inline-block;*/
   color: white;
 }
 
@@ -197,4 +197,10 @@ h3 {
 #playerSelect {
   font-family: arial;
   color: black;
+}
+
+#npt {
+  margin-left: 125px;
+  text-align: right;
+  width: 200px;
 }
