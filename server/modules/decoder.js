@@ -3,7 +3,7 @@ var verbose = false;
 var express = require('express');
 var admin = require("firebase-admin");
 var pg = require('pg');
-var connectionString = 'postgres://localhost:5432/sigma';
+var connectionString = require('../modules/database-config.js');
 
 if (verbose) {console.log('decoder running')};
 
