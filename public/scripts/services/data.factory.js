@@ -28,18 +28,18 @@ app.factory('DataFactory', ['$firebaseAuth', '$http', '$q', function($firebaseAu
             emailInDatabase = true;
           }
         }
-        if (emailInDatabase == false) {
+        if (emailInDatabase === false) {
           console.log('trying to add currentUser: ', currentUser);
           $http.post('/login', currentUser)
           .then(function(response) {
             console.log('added user to db:');
-          })
+          });
         }
       });
     }).catch(function(error) {
       console.log("Authentication failed: ", error);
     });
-  };
+  }
 
   function logOut() {
     return auth.$signOut().then(function() {
@@ -48,7 +48,7 @@ app.factory('DataFactory', ['$firebaseAuth', '$http', '$q', function($firebaseAu
       console.log('logged out');
       console.log('currentUser: ', currentUser);
     });
-  };
+  }
 
   function getCurrentUser() {
     return currentUser;
@@ -142,7 +142,7 @@ app.factory('DataFactory', ['$firebaseAuth', '$http', '$q', function($firebaseAu
                     }
                   }
                   // console.log('goodToGo: ', goodToGo);
-                  if(goodToGo == true) {
+                  if(goodToGo === true) {
                     $http({
                       method: 'POST',
                       url: '/roster',
@@ -167,7 +167,7 @@ app.factory('DataFactory', ['$firebaseAuth', '$http', '$q', function($firebaseAu
           });
         } else {
           // console.log('factory add player not logged in');
-          alert('You must be logged in to add a player to your roster.')
+          alert('You must be logged in to add a player to your roster.');
         }
 
       }

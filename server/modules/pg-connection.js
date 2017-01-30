@@ -13,6 +13,6 @@ var connectToSQLDatabase = function() {
   // pg.connection.on('error', function (err) {
   //   console.log('pg failed to connect because error: ', err);
   // });
-}
+};
 
 module.exports = { connect: connectToSQLDatabase };
