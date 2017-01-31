@@ -15,7 +15,7 @@ admin.initializeApp({
 var tokenDecoder = function(req, res, next){
   if (verbose) {console.log('req.headers: ', req.headers)};
   if (verbose) {console.log('req.headers.id_token: ', req.headers.id_token)};
-  if (req.headers.id_token == undefined){
+  if (req.headers.id_token === undefined){
     res.sendStatus(403);
     //might want to uncomment next line for testing
     // next();
